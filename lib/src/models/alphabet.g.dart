@@ -173,6 +173,9 @@ AlphabetInfo _$AlphabetInfoFromJson(Map<String, dynamic> json) => AlphabetInfo(
       (json['languages'] as List<dynamic>?)
           ?.map((e) => AlphabetLanguage.fromJson(e as Map<String, dynamic>))
           .toList(),
+      (json['bibles'] as List<dynamic>?)
+          ?.map((e) => AlphabetBible.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$AlphabetInfoToJson(AlphabetInfo instance) =>
@@ -203,6 +206,7 @@ Map<String, dynamic> _$AlphabetInfoToJson(AlphabetInfo instance) =>
       'description': instance.description,
       'fonts': instance.fonts?.map((e) => e.toJson()).toList(),
       'languages': instance.languages?.map((e) => e.toJson()).toList(),
+      'bibles': instance.bibles?.map((e) => e.toJson()).toList(),
     };
 
 AlphabetBible _$AlphabetBibleFromJson(Map<String, dynamic> json) =>
