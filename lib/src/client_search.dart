@@ -10,7 +10,8 @@ class SearchClient {
   SearchClient(this._client);
 
   /// Search a bible for a word.
-  Future<List<SearchResult>> search(String query, String filesetId, {List<String>? books}) async {
+  Future<List<SearchResult>> search(String query, String filesetId,
+      {List<String>? books}) async {
     var searches = <SearchResult>[];
     var queryMap = <String, Object?>{
       'query': query,
@@ -25,7 +26,8 @@ class SearchClient {
     int totalPages = 0;
     int nextPage = 0;
     do {
-      response = await _client.get(ApiEndpoints.search, deserializer: SearchResult.fromJson, query: queryMap);
+      response = await _client.get(ApiEndpoints.search,
+          deserializer: SearchResult.fromJson, query: queryMap);
       if (response == null) break;
 
       searches.add(response);
@@ -52,6 +54,7 @@ class SearchClient {
       'limit': limit,
       'page': page
     };
-    return await _client.get(ApiEndpoints.search, deserializer: SearchResult.fromJson, query: queryMap);
+    return await _client.get(ApiEndpoints.search,
+        deserializer: SearchResult.fromJson, query: queryMap);
   }
 }

@@ -11,9 +11,11 @@ class DownloadableFileset {
   @JsonKey(name: 'fileset_id')
   final String? filesetId;
 
-  const DownloadableFileset(this.type, this.language, this.licensor, this.filesetId);
+  const DownloadableFileset(
+      this.type, this.language, this.licensor, this.filesetId);
 
-  factory DownloadableFileset.fromJson(Map<String, dynamic> json) => _$DownloadableFilesetFromJson(json);
+  factory DownloadableFileset.fromJson(Map<String, dynamic> json) =>
+      _$DownloadableFilesetFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$DownloadableFilesetToJson(this);
@@ -27,7 +29,8 @@ class DownloadableFilesetResult {
 
   const DownloadableFilesetResult(this.data, this.meta);
 
-  factory DownloadableFilesetResult.fromJson(Map<String, dynamic> json) => _$DownloadableFilesetResultFromJson(json);
+  factory DownloadableFilesetResult.fromJson(Map<String, dynamic> json) =>
+      _$DownloadableFilesetResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$DownloadableFilesetResultToJson(this);
@@ -40,11 +43,13 @@ class DownloadableFilesetResultMetadata {
 
   const DownloadableFilesetResultMetadata(this.pagination);
 
-  factory DownloadableFilesetResultMetadata.fromJson(Map<String, dynamic> json) =>
+  factory DownloadableFilesetResultMetadata.fromJson(
+          Map<String, dynamic> json) =>
       _$DownloadableFilesetResultMetadataFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$DownloadableFilesetResultMetadataToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$DownloadableFilesetResultMetadataToJson(this);
 }
 
 /// The pagination data of [VerseByVersionResultMetadata].
@@ -60,14 +65,16 @@ class DownloadableFilesetResultMetadataPagination {
   final int? totalPages;
   final DownloadableFilesetResultMetadataPaginationLinks? links;
 
-  const DownloadableFilesetResultMetadataPagination(
-      this.total, this.count, this.perPage, this.currentPage, this.totalPages, this.links);
+  const DownloadableFilesetResultMetadataPagination(this.total, this.count,
+      this.perPage, this.currentPage, this.totalPages, this.links);
 
-  factory DownloadableFilesetResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory DownloadableFilesetResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$DownloadableFilesetResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$DownloadableFilesetResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$DownloadableFilesetResultMetadataPaginationToJson(this);
 }
 
 /// The links data of [VerseByVersionResultMetadataPagination].
@@ -76,13 +83,16 @@ class DownloadableFilesetResultMetadataPaginationLinks {
   final String? previous;
   final String? next;
 
-  const DownloadableFilesetResultMetadataPaginationLinks(this.previous, this.next);
+  const DownloadableFilesetResultMetadataPaginationLinks(
+      this.previous, this.next);
 
-  factory DownloadableFilesetResultMetadataPaginationLinks.fromJson(Map<String, dynamic> json) =>
+  factory DownloadableFilesetResultMetadataPaginationLinks.fromJson(
+          Map<String, dynamic> json) =>
       _$DownloadableFilesetResultMetadataPaginationLinksFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$DownloadableFilesetResultMetadataPaginationLinksToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$DownloadableFilesetResultMetadataPaginationLinksToJson(this);
 }
 
 /// A download content.
@@ -138,7 +148,8 @@ class DownloadContent {
       this.fileSizeInBytes,
       this.youtubeUrl);
 
-  factory DownloadContent.fromJson(Map<String, dynamic> json) => _$DownloadContentFromJson(json);
+  factory DownloadContent.fromJson(Map<String, dynamic> json) =>
+      _$DownloadContentFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$DownloadContentToJson(this);
@@ -152,7 +163,8 @@ class DownloadContentResult {
 
   const DownloadContentResult(this.data, this.meta);
 
-  factory DownloadContentResult.fromJson(Map<String, dynamic> json) => _$DownloadContentResultFromJson(json);
+  factory DownloadContentResult.fromJson(Map<String, dynamic> json) =>
+      _$DownloadContentResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$DownloadContentResultToJson(this);
@@ -166,7 +178,8 @@ class DownloadContentResultMetadata {
   final String? zipFile;
   final DownloadContentResultMetadataPagination? pagination;
 
-  const DownloadContentResultMetadata(this.thumbnail, this.zipFile, this.pagination);
+  const DownloadContentResultMetadata(
+      this.thumbnail, this.zipFile, this.pagination);
 
   factory DownloadContentResultMetadata.fromJson(Map<String, dynamic> json) =>
       _$DownloadContentResultMetadataFromJson(json);
@@ -190,9 +203,11 @@ class DownloadContentResultMetadataPagination {
   const DownloadContentResultMetadataPagination(
       this.total, this.count, this.perPage, this.currentPage, this.totalPages);
 
-  factory DownloadContentResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory DownloadContentResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$DownloadContentResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$DownloadContentResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$DownloadContentResultMetadataPaginationToJson(this);
 }

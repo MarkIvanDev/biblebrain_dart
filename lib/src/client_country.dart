@@ -10,15 +10,20 @@ class CountryClient {
   CountryClient(this._client);
 
   /// Returns the list of countries.
-  Future<List<Country>> getCountries({String? l10n, bool? includeLanguages}) async {
+  Future<List<Country>> getCountries(
+      {String? l10n, bool? includeLanguages}) async {
     var countries = <Country>[];
-    var query = <String, Object?>{'l10n': l10n, 'include_languages': includeLanguages};
+    var query = <String, Object?>{
+      'l10n': l10n,
+      'include_languages': includeLanguages
+    };
 
     CountriesResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.countries, deserializer: CountriesResult.fromJson, query: query);
+      response = await _client.get(ApiEndpoints.countries,
+          deserializer: CountriesResult.fromJson, query: query);
       if (response == null || response.data == null) break;
 
       countries.addAll(response.data!);
@@ -34,15 +39,24 @@ class CountryClient {
 
   /// Returns the paginated list of countries.
   Future<CountriesResult?> getCountriesPaginated(
-      {String? l10n, bool? includeLanguages, required int page, int? limit}) async {
+      {String? l10n,
+      bool? includeLanguages,
+      required int page,
+      int? limit}) async {
     return await _client.get(ApiEndpoints.countries,
         deserializer: CountriesResult.fromJson,
-        query: {'l10n': l10n, 'include_languages': includeLanguages, 'limit': limit, 'page': page});
+        query: {
+          'l10n': l10n,
+          'include_languages': includeLanguages,
+          'limit': limit,
+          'page': page
+        });
   }
 
   /// Returns details for a single country.
   Future<CountryInfoResult?> getCountry(String countryId) async {
-    return await _client.get(ApiEndpoints.getCountry(countryId), deserializer: CountryInfoResult.fromJson);
+    return await _client.get(ApiEndpoints.getCountry(countryId),
+        deserializer: CountryInfoResult.fromJson);
   }
 
   /// Returns the list of countries that have [searchText] in its name.
@@ -70,8 +84,10 @@ class CountryClient {
   }
 
   /// Returns the paginated list of countries that have [searchText] in its name.
-  Future<CountrySearchResult?> searchCountriesPaginated(String searchText, {required int page, int? limit}) async {
+  Future<CountrySearchResult?> searchCountriesPaginated(String searchText,
+      {required int page, int? limit}) async {
     return await _client.get(ApiEndpoints.getCountrySearch(searchText),
-        deserializer: CountrySearchResult.fromJson, query: {'limit': limit, 'page': page});
+        deserializer: CountrySearchResult.fromJson,
+        query: {'limit': limit, 'page': page});
   }
 }

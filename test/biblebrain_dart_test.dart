@@ -89,24 +89,24 @@ void main() {
     });
 
     test('searchBiblesByVersion', () async {
-      final verses = await client.bible.searchBiblesByVersion('KJV');
-      expect(verses.isNotEmpty, isTrue);
+      final bibles = await client.bible.searchBiblesByVersion('KJV');
+      expect(bibles.isNotEmpty, isTrue);
     });
 
     test('searchBiblesByVersionPaginated', () async {
-      final verses =
+      final bibles =
           await client.bible.searchBiblesByVersionPaginated('KJV', page: 1);
-      expect(verses, isNotNull);
+      expect(bibles, isNotNull);
     });
 
     test('searchBibles', () async {
-      final verses = await client.bible.searchBibles('king');
-      expect(verses.isNotEmpty, isTrue);
+      final bibles = await client.bible.searchBibles('king');
+      expect(bibles.isNotEmpty, isTrue);
     });
 
     test('searchBiblesPaginated', () async {
-      final verses = await client.bible.searchBiblesPaginated('king', page: 1);
-      expect(verses, isNotNull);
+      final bibles = await client.bible.searchBiblesPaginated('king', page: 1);
+      expect(bibles, isNotNull);
     });
 
     test('getVerseInfo', () async {

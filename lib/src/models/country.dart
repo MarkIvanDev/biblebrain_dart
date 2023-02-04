@@ -14,7 +14,8 @@ class Country {
 
   const Country(this.name, this.continentCode, this.codes);
 
-  factory Country.fromJson(Map<String, dynamic> json) => _$CountryFromJson(json);
+  factory Country.fromJson(Map<String, dynamic> json) =>
+      _$CountryFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryToJson(this);
@@ -31,7 +32,8 @@ class CountryCodes {
 
   const CountryCodes(this.fips, this.isoA3, this.isoA2);
 
-  factory CountryCodes.fromJson(Map<String, dynamic> json) => _$CountryCodesFromJson(json);
+  factory CountryCodes.fromJson(Map<String, dynamic> json) =>
+      _$CountryCodesFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryCodesToJson(this);
@@ -51,10 +53,11 @@ class CountryInfo {
   final List<CountryInfoLanguage>? languages;
   final CountryCodes? codes;
 
-  const CountryInfo(this.name, this.introduction, this.continentCode, this.maps, this.wfb, this.ethnologue,
-      this.languages, this.codes);
+  const CountryInfo(this.name, this.introduction, this.continentCode, this.maps,
+      this.wfb, this.ethnologue, this.languages, this.codes);
 
-  factory CountryInfo.fromJson(Map<String, dynamic> json) => _$CountryInfoFromJson(json);
+  factory CountryInfo.fromJson(Map<String, dynamic> json) =>
+      _$CountryInfoFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryInfoToJson(this);
@@ -70,7 +73,8 @@ class CountryInfoMapInfo {
 
   const CountryInfoMapInfo(this.thumbnailUrl, this.mapUrl);
 
-  factory CountryInfoMapInfo.fromJson(Map<String, dynamic> json) => _$CountryInfoMapInfoFromJson(json);
+  factory CountryInfoMapInfo.fromJson(Map<String, dynamic> json) =>
+      _$CountryInfoMapInfoFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryInfoMapInfoToJson(this);
@@ -86,7 +90,8 @@ class CountryInfoLanguage {
 
   const CountryInfoLanguage(this.name, this.iso, this.bibles);
 
-  factory CountryInfoLanguage.fromJson(Map<String, dynamic> json) => _$CountryInfoLanguageFromJson(json);
+  factory CountryInfoLanguage.fromJson(Map<String, dynamic> json) =>
+      _$CountryInfoLanguageFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryInfoLanguageToJson(this);
@@ -100,7 +105,8 @@ class CountriesResult {
 
   const CountriesResult(this.data, this.meta);
 
-  factory CountriesResult.fromJson(Map<String, dynamic> json) => _$CountriesResultFromJson(json);
+  factory CountriesResult.fromJson(Map<String, dynamic> json) =>
+      _$CountriesResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountriesResultToJson(this);
@@ -113,7 +119,8 @@ class CountriesResultMetadata {
 
   const CountriesResultMetadata(this.pagination);
 
-  factory CountriesResultMetadata.fromJson(Map<String, dynamic> json) => _$CountriesResultMetadataFromJson(json);
+  factory CountriesResultMetadata.fromJson(Map<String, dynamic> json) =>
+      _$CountriesResultMetadataFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountriesResultMetadataToJson(this);
@@ -132,14 +139,16 @@ class CountriesResultMetadataPagination {
   final int? totalPages;
   final CountriesResultMetadataPaginationLinks? links;
 
-  const CountriesResultMetadataPagination(
-      this.total, this.count, this.perPage, this.currentPage, this.totalPages, this.links);
+  const CountriesResultMetadataPagination(this.total, this.count, this.perPage,
+      this.currentPage, this.totalPages, this.links);
 
-  factory CountriesResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory CountriesResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$CountriesResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$CountriesResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$CountriesResultMetadataPaginationToJson(this);
 }
 
 /// The links data of [CountriesResultMetadataPagination].
@@ -150,11 +159,13 @@ class CountriesResultMetadataPaginationLinks {
 
   const CountriesResultMetadataPaginationLinks(this.previous, this.next);
 
-  factory CountriesResultMetadataPaginationLinks.fromJson(Map<String, dynamic> json) =>
+  factory CountriesResultMetadataPaginationLinks.fromJson(
+          Map<String, dynamic> json) =>
       _$CountriesResultMetadataPaginationLinksFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$CountriesResultMetadataPaginationLinksToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$CountriesResultMetadataPaginationLinksToJson(this);
 }
 
 /// Payload containing the data of a country.
@@ -164,7 +175,8 @@ class CountryInfoResult {
 
   const CountryInfoResult(this.data);
 
-  factory CountryInfoResult.fromJson(Map<String, dynamic> json) => _$CountryInfoResultFromJson(json);
+  factory CountryInfoResult.fromJson(Map<String, dynamic> json) =>
+      _$CountryInfoResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountryInfoResultToJson(this);
@@ -179,7 +191,8 @@ class CountrySearch {
 
   const CountrySearch(this.name, this.continentCode, this.codes);
 
-  factory CountrySearch.fromJson(Map<String, dynamic> json) => _$CountrySearchFromJson(json);
+  factory CountrySearch.fromJson(Map<String, dynamic> json) =>
+      _$CountrySearchFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountrySearchToJson(this);
@@ -196,7 +209,8 @@ class CountrySearchCodes {
 
   const CountrySearchCodes(this.fips, this.isoA3, this.isoA2);
 
-  factory CountrySearchCodes.fromJson(Map<String, dynamic> json) => _$CountrySearchCodesFromJson(json);
+  factory CountrySearchCodes.fromJson(Map<String, dynamic> json) =>
+      _$CountrySearchCodesFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountrySearchCodesToJson(this);
@@ -210,7 +224,8 @@ class CountrySearchResult {
 
   const CountrySearchResult(this.data, this.meta);
 
-  factory CountrySearchResult.fromJson(Map<String, dynamic> json) => _$CountrySearchResultFromJson(json);
+  factory CountrySearchResult.fromJson(Map<String, dynamic> json) =>
+      _$CountrySearchResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$CountrySearchResultToJson(this);
@@ -242,11 +257,14 @@ class CountrySearchResultMetadataPagination {
   @JsonKey(name: 'total_pages')
   final int? totalPages;
 
-  const CountrySearchResultMetadataPagination(this.total, this.count, this.perPage, this.currentPage, this.totalPages);
+  const CountrySearchResultMetadataPagination(
+      this.total, this.count, this.perPage, this.currentPage, this.totalPages);
 
-  factory CountrySearchResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory CountrySearchResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$CountrySearchResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$CountrySearchResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$CountrySearchResultMetadataPaginationToJson(this);
 }
