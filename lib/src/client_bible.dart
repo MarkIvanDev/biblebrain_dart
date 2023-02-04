@@ -196,7 +196,7 @@ class BibleClient {
   /// Returns the list of bibles meeting the given [version].
   Future<List<BibleSearchByVersion>> searchBiblesByVersion(
       String version) async {
-    var verses = <BibleSearchByVersion>[];
+    var bibles = <BibleSearchByVersion>[];
     var query = <String, Object?>{'version': version};
 
     BibleSearchByVersionResult? response;
@@ -207,7 +207,7 @@ class BibleClient {
           deserializer: BibleSearchByVersionResult.fromJson, query: query);
       if (response == null || response.data == null) break;
 
-      verses.addAll(response.data!);
+      bibles.addAll(response.data!);
       if (response.meta?.pagination != null) {
         currentPage = response.meta!.pagination!.currentPage!;
         totalPages = response.meta!.pagination!.lastPage!;
@@ -215,7 +215,7 @@ class BibleClient {
       query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
-    return verses;
+    return bibles;
   }
 
   /// Returns a paginated list of bibles meeting the given [version].
@@ -230,7 +230,7 @@ class BibleClient {
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
   Future<List<BibleSearch>> searchBibles(String searchText) async {
-    var verses = <BibleSearch>[];
+    var bibles = <BibleSearch>[];
     var query = <String, Object?>{};
 
     BibleSearchResult? response;
@@ -241,7 +241,7 @@ class BibleClient {
           deserializer: BibleSearchResult.fromJson, query: query);
       if (response == null || response.data == null) break;
 
-      verses.addAll(response.data!);
+      bibles.addAll(response.data!);
       if (response.meta?.pagination != null) {
         currentPage = response.meta!.pagination!.currentPage!;
         totalPages = response.meta!.pagination!.lastPage!;
@@ -249,7 +249,7 @@ class BibleClient {
       query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
-    return verses;
+    return bibles;
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
