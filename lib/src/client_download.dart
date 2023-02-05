@@ -14,20 +14,24 @@ class DownloadClient {
     var filesets = <DownloadableFileset>[];
     var query = <String, Object?>{};
 
-    DownloadableFilesetResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.downloadList,
+      final response = await _client.get(ApiEndpoints.downloadList,
           deserializer: DownloadableFilesetResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      filesets.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      filesets.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return filesets;

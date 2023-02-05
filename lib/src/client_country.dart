@@ -18,20 +18,23 @@ class CountryClient {
       'include_languages': includeLanguages
     };
 
-    CountriesResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.countries,
+      final response = await _client.get(ApiEndpoints.countries,
           deserializer: CountriesResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      countries.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      countries.addAll(response.data ?? []);
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return countries;
@@ -64,20 +67,26 @@ class CountryClient {
     var countries = <CountrySearch>[];
     var query = <String, Object?>{};
 
-    CountrySearchResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.getCountrySearch(searchText),
-          deserializer: CountrySearchResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      final response = await _client.get(
+          ApiEndpoints.getCountrySearch(searchText),
+          deserializer: CountrySearchResult.fromJson,
+          query: query);
+      if (response == null) break;
 
-      countries.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      countries.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return countries;
