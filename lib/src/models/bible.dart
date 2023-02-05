@@ -114,6 +114,7 @@ class BibleInfo {
   final String? country;
   final List<BibleInfoBook>? books;
   final List<BibleInfoLink>? links;
+  @FilesetsConverter()
   final Filesets? filesets;
   final BibleInfoFont? fonts;
 
