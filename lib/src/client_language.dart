@@ -23,20 +23,24 @@ class LanguageClient {
       'include_translations': includeTranslations
     };
 
-    LanguagesResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.languages,
+      final response = await _client.get(ApiEndpoints.languages,
           deserializer: LanguagesResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      languages.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      languages.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return languages;
@@ -73,20 +77,24 @@ class LanguageClient {
     var languages = <LanguageSearch>[];
     var query = <String, Object?>{};
 
-    LanguageSearchResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.getLanguageSearch(searchText),
+      final response = await _client.get(
+          ApiEndpoints.getLanguageSearch(searchText),
           deserializer: LanguageSearchResult.fromJson);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      languages.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      languages.addAll(response.data ?? []);
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return languages;
