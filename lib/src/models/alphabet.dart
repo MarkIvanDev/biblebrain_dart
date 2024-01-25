@@ -201,6 +201,7 @@ class AlphabetInfo {
   final String? description;
   final List<AlphabetFont>? fonts;
   final List<AlphabetLanguage>? languages;
+  final List<AlphabetBible>? bibles;
 
   const AlphabetInfo(
       this.script,
@@ -227,7 +228,8 @@ class AlphabetInfo {
       this.sampleImg,
       this.description,
       this.fonts,
-      this.languages);
+      this.languages,
+      this.bibles);
 
   factory AlphabetInfo.fromJson(Map<String, dynamic> json) =>
       _$AlphabetInfoFromJson(json);

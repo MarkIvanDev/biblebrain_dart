@@ -29,21 +29,25 @@ class BibleClient {
       'size_exclude': sizeExclude
     };
 
-    BiblesResult? response;
     int currentPage = 0;
-    int totalPages = 0;
+    int lastPage = 0;
     do {
-      response = await _client.get(ApiEndpoints.bibles,
+      final response = await _client.get(ApiEndpoints.bibles,
           deserializer: BiblesResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      bibles.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.lastPage!;
+      bibles.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final lp = response.meta?.pagination?.lastPage;
+      if (cp != null && lp != null) {
+        currentPage = cp;
+        lastPage = lp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
-    } while (currentPage < totalPages);
+    } while (currentPage < lastPage);
 
     return bibles;
   }
@@ -121,23 +125,27 @@ class BibleClient {
     var verses = <VerseByLanguage>[];
     var query = <String, Object?>{};
 
-    VerseByLanguageResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(
+      final response = await _client.get(
           ApiEndpoints.getVersesByLanguage(languageCode, bookId, chapter,
               verse: verse),
           deserializer: VerseByLanguageResult.fromJson,
           query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      verses.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      verses.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return verses;
@@ -161,23 +169,27 @@ class BibleClient {
     var verses = <VerseByVersion>[];
     var query = <String, Object?>{};
 
-    VerseByVersionResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(
+      final response = await _client.get(
           ApiEndpoints.getVersesByVersion(bibleId, bookId, chapter,
               verse: verse),
           deserializer: VerseByVersionResult.fromJson,
           query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      verses.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      verses.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return verses;
@@ -196,26 +208,30 @@ class BibleClient {
   /// Returns the list of bibles meeting the given [version].
   Future<List<BibleSearchByVersion>> searchBiblesByVersion(
       String version) async {
-    var verses = <BibleSearchByVersion>[];
+    var bibles = <BibleSearchByVersion>[];
     var query = <String, Object?>{'version': version};
 
-    BibleSearchByVersionResult? response;
     int currentPage = 0;
-    int totalPages = 0;
+    int lastPage = 0;
     do {
-      response = await _client.get(ApiEndpoints.bibleSearch,
+      final response = await _client.get(ApiEndpoints.bibleSearch,
           deserializer: BibleSearchByVersionResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      if (response == null) break;
 
-      verses.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.lastPage!;
+      bibles.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final lp = response.meta?.pagination?.lastPage;
+      if (cp != null && lp != null) {
+        currentPage = cp;
+        lastPage = lp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
-    } while (currentPage < totalPages);
+    } while (currentPage < lastPage);
 
-    return verses;
+    return bibles;
   }
 
   /// Returns a paginated list of bibles meeting the given [version].
@@ -230,26 +246,32 @@ class BibleClient {
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
   Future<List<BibleSearch>> searchBibles(String searchText) async {
-    var verses = <BibleSearch>[];
+    var bibles = <BibleSearch>[];
     var query = <String, Object?>{};
 
-    BibleSearchResult? response;
     int currentPage = 0;
-    int totalPages = 0;
+    int lastPage = 0;
     do {
-      response = await _client.get(ApiEndpoints.getBibleSearch(searchText),
-          deserializer: BibleSearchResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      final response = await _client.get(
+          ApiEndpoints.getBibleSearch(searchText),
+          deserializer: BibleSearchResult.fromJson,
+          query: query);
+      if (response == null) break;
 
-      verses.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.lastPage!;
+      bibles.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final lp = response.meta?.pagination?.lastPage;
+      if (cp != null && lp != null) {
+        currentPage = cp;
+        lastPage = lp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
-    } while (currentPage < totalPages);
+    } while (currentPage < lastPage);
 
-    return verses;
+    return bibles;
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name.

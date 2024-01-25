@@ -115,9 +115,7 @@ BibleInfo _$BibleInfoFromJson(Map<String, dynamic> json) => BibleInfo(
       (json['links'] as List<dynamic>?)
           ?.map((e) => BibleInfoLink.fromJson(e as Map<String, dynamic>))
           .toList(),
-      json['filesets'] == null
-          ? null
-          : Filesets.fromJson(json['filesets'] as Map<String, dynamic>),
+      const FilesetsConverter().fromJson(json['filesets']),
       json['fonts'] == null
           ? null
           : BibleInfoFont.fromJson(json['fonts'] as Map<String, dynamic>),
@@ -142,7 +140,7 @@ Map<String, dynamic> _$BibleInfoToJson(BibleInfo instance) => <String, dynamic>{
       'country': instance.country,
       'books': instance.books?.map((e) => e.toJson()).toList(),
       'links': instance.links?.map((e) => e.toJson()).toList(),
-      'filesets': instance.filesets?.toJson(),
+      'filesets': const FilesetsConverter().toJson(instance.filesets),
       'fonts': instance.fonts?.toJson(),
     };
 

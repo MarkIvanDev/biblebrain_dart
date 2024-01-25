@@ -11,7 +11,10 @@ class LanguageClient {
 
   /// Returns the list of languages.
   Future<List<Language>> getLanguages(
-      {String? country, String? languageCode, String? languageName, bool? includeTranslations}) async {
+      {String? country,
+      String? languageCode,
+      String? languageName,
+      bool? includeTranslations}) async {
     var languages = <Language>[];
     var query = <String, Object?>{
       'country': country,
@@ -20,19 +23,24 @@ class LanguageClient {
       'include_translations': includeTranslations
     };
 
-    LanguagesResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response = await _client.get(ApiEndpoints.languages, deserializer: LanguagesResult.fromJson, query: query);
-      if (response == null || response.data == null) break;
+      final response = await _client.get(ApiEndpoints.languages,
+          deserializer: LanguagesResult.fromJson, query: query);
+      if (response == null) break;
 
-      languages.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      languages.addAll(response.data ?? []);
+
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return languages;
@@ -46,19 +54,22 @@ class LanguageClient {
       bool? includeTranslations,
       required int page,
       int? limit}) async {
-    return await _client.get(ApiEndpoints.languages, deserializer: LanguagesResult.fromJson, query: {
-      'country': country,
-      'language_code': languageCode,
-      'language_name': languageName,
-      'include_translations': includeTranslations,
-      'limit': limit,
-      'page': page
-    });
+    return await _client.get(ApiEndpoints.languages,
+        deserializer: LanguagesResult.fromJson,
+        query: {
+          'country': country,
+          'language_code': languageCode,
+          'language_name': languageName,
+          'include_translations': includeTranslations,
+          'limit': limit,
+          'page': page
+        });
   }
 
   /// Returns details for a single language.
   Future<LanguageInfoResult?> getLanguage(int languageId) async {
-    return await _client.get(ApiEndpoints.getLanguage(languageId), deserializer: LanguageInfoResult.fromJson);
+    return await _client.get(ApiEndpoints.getLanguage(languageId),
+        deserializer: LanguageInfoResult.fromJson);
   }
 
   /// Returns the list of languages that have [searchText] in its name or country.
@@ -66,28 +77,34 @@ class LanguageClient {
     var languages = <LanguageSearch>[];
     var query = <String, Object?>{};
 
-    LanguageSearchResult? response;
     int currentPage = 0;
     int totalPages = 0;
     do {
-      response =
-          await _client.get(ApiEndpoints.getLanguageSearch(searchText), deserializer: LanguageSearchResult.fromJson);
-      if (response == null || response.data == null) break;
+      final response = await _client.get(
+          ApiEndpoints.getLanguageSearch(searchText),
+          deserializer: LanguageSearchResult.fromJson);
+      if (response == null) break;
 
-      languages.addAll(response.data!);
-      if (response.meta?.pagination != null) {
-        currentPage = response.meta!.pagination!.currentPage!;
-        totalPages = response.meta!.pagination!.totalPages!;
+      languages.addAll(response.data ?? []);
+      final cp = response.meta?.pagination?.currentPage;
+      final tp = response.meta?.pagination?.totalPages;
+      if (cp != null && tp != null) {
+        currentPage = cp;
+        totalPages = tp;
+        query['page'] = currentPage + 1;
+      } else {
+        break;
       }
-      query['page'] = currentPage + 1;
     } while (currentPage < totalPages);
 
     return languages;
   }
 
   /// Returns the paginated list of languages that have [searchText] in its name or country.
-  Future<LanguageSearchResult?> searchLanguagesPaginated(String searchText, {required int page, int? limit}) async {
+  Future<LanguageSearchResult?> searchLanguagesPaginated(String searchText,
+      {required int page, int? limit}) async {
     return await _client.get(ApiEndpoints.getLanguageSearch(searchText),
-        deserializer: LanguageSearchResult.fromJson, query: <String, Object?>{'limit': limit, 'page': page});
+        deserializer: LanguageSearchResult.fromJson,
+        query: <String, Object?>{'limit': limit, 'page': page});
   }
 }

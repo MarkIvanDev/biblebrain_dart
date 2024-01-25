@@ -10,7 +10,8 @@ class SearchClient {
   SearchClient(this._client);
 
   /// Search a bible for a word.
-  Future<List<SearchResult>> search(String query, String filesetId, {List<String>? books}) async {
+  Future<List<SearchResult>> search(String query, String filesetId,
+      {List<String>? books}) async {
     var searches = <SearchResult>[];
     var queryMap = <String, Object?>{
       'query': query,
@@ -20,24 +21,33 @@ class SearchClient {
       'books': books != null && books.isNotEmpty ? books.join(',') : null
     };
 
-    SearchResult? response;
     int currentPage = 0;
     int totalPages = 0;
-    int nextPage = 0;
+    bool isMetaNull = false;
     do {
-      response = await _client.get(ApiEndpoints.search, deserializer: SearchResult.fromJson, query: queryMap);
+      final response = await _client.get(ApiEndpoints.search,
+          deserializer: SearchResult.fromJson, query: queryMap);
       if (response == null) break;
 
       searches.add(response);
-      if (response.verses?.meta?.pagination != null) {
-        currentPage = response.verses!.meta!.pagination!.currentPage!;
-        totalPages = response.verses!.meta!.pagination!.totalPages!;
-        nextPage = currentPage + 1;
+
+      final meta = response.verses?.meta;
+      if (meta != null) {
+        isMetaNull = false;
+        final cp = meta.pagination?.currentPage;
+        final tp = meta.pagination?.totalPages;
+        if (cp != null && tp != null) {
+          currentPage = cp;
+          totalPages = tp;
+          queryMap['page'] = currentPage + 1;
+        } else {
+          break;
+        }
       } else {
-        nextPage = 2;
+        isMetaNull = true;
+        queryMap['page'] = 2;
       }
-      queryMap['page'] = nextPage;
-    } while (response.verses?.meta == null || currentPage < totalPages);
+    } while (isMetaNull || currentPage < totalPages);
 
     return searches;
   }
@@ -52,6 +62,7 @@ class SearchClient {
       'limit': limit,
       'page': page
     };
-    return await _client.get(ApiEndpoints.search, deserializer: SearchResult.fromJson, query: queryMap);
+    return await _client.get(ApiEndpoints.search,
+        deserializer: SearchResult.fromJson, query: queryMap);
   }
 }

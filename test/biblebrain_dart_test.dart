@@ -21,7 +21,7 @@ void main() {
     test('getBibles', () async {
       final bibles = await client.bible.getBibles();
       expect(bibles.isNotEmpty, isTrue);
-    });
+    }, timeout: const Timeout(Duration(minutes: 1)));
 
     test('getBiblesPaginated', () async {
       final bibles = await client.bible.getBiblesPaginated(page: 1);
@@ -89,24 +89,24 @@ void main() {
     });
 
     test('searchBiblesByVersion', () async {
-      final verses = await client.bible.searchBiblesByVersion('KJV');
-      expect(verses.isNotEmpty, isTrue);
+      final bibles = await client.bible.searchBiblesByVersion('KJV');
+      expect(bibles.isNotEmpty, isTrue);
     });
 
     test('searchBiblesByVersionPaginated', () async {
-      final verses =
+      final bibles =
           await client.bible.searchBiblesByVersionPaginated('KJV', page: 1);
-      expect(verses, isNotNull);
+      expect(bibles, isNotNull);
     });
 
     test('searchBibles', () async {
-      final verses = await client.bible.searchBibles('king');
-      expect(verses.isNotEmpty, isTrue);
+      final bibles = await client.bible.searchBibles('king');
+      expect(bibles.isNotEmpty, isTrue);
     });
 
     test('searchBiblesPaginated', () async {
-      final verses = await client.bible.searchBiblesPaginated('king', page: 1);
-      expect(verses, isNotNull);
+      final bibles = await client.bible.searchBiblesPaginated('king', page: 1);
+      expect(bibles, isNotNull);
     });
 
     test('getVerseInfo', () async {
@@ -148,7 +148,7 @@ void main() {
     test('getDownloadableFilesets', () async {
       final filesets = await client.download.getDownloadableFilesets();
       expect(filesets.isNotEmpty, isTrue);
-    });
+    }, timeout: const Timeout(Duration(minutes: 1)));
 
     test('getDownloadableFilesetsPaginated', () async {
       final filesets =
@@ -167,7 +167,7 @@ void main() {
     test('getLanguages', () async {
       final languages = await client.language.getLanguages();
       expect(languages.isNotEmpty, isTrue);
-    });
+    }, timeout: const Timeout(Duration(minutes: 1)));
 
     test('getLanguagesPaginated', () async {
       final languages = await client.language.getLanguagesPaginated(page: 1);

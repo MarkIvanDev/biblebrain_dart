@@ -17,9 +17,11 @@ class Language {
   final int? bibles;
   final int? filesets;
 
-  const Language(this.id, this.glottoId, this.iso, this.name, this.autonym, this.bibles, this.filesets);
+  const Language(this.id, this.glottoId, this.iso, this.name, this.autonym,
+      this.bibles, this.filesets);
 
-  factory Language.fromJson(Map<String, dynamic> json) => _$LanguageFromJson(json);
+  factory Language.fromJson(Map<String, dynamic> json) =>
+      _$LanguageFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageToJson(this);
@@ -33,7 +35,8 @@ class LanguagesResult {
 
   const LanguagesResult(this.data, this.meta);
 
-  factory LanguagesResult.fromJson(Map<String, dynamic> json) => _$LanguagesResultFromJson(json);
+  factory LanguagesResult.fromJson(Map<String, dynamic> json) =>
+      _$LanguagesResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguagesResultToJson(this);
@@ -46,7 +49,8 @@ class LanguagesResultMetadata {
 
   const LanguagesResultMetadata(this.pagination);
 
-  factory LanguagesResultMetadata.fromJson(Map<String, dynamic> json) => _$LanguagesResultMetadataFromJson(json);
+  factory LanguagesResultMetadata.fromJson(Map<String, dynamic> json) =>
+      _$LanguagesResultMetadataFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguagesResultMetadataToJson(this);
@@ -65,14 +69,16 @@ class LanguagesResultMetadataPagination {
   final int? totalPages;
   final LanguagesResultMetadataPaginationLinks? links;
 
-  const LanguagesResultMetadataPagination(
-      this.total, this.count, this.perPage, this.currentPage, this.totalPages, this.links);
+  const LanguagesResultMetadataPagination(this.total, this.count, this.perPage,
+      this.currentPage, this.totalPages, this.links);
 
-  factory LanguagesResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory LanguagesResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$LanguagesResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$LanguagesResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$LanguagesResultMetadataPaginationToJson(this);
 }
 
 /// The links data of [LanguagesResultMetadataPagination].
@@ -83,11 +89,13 @@ class LanguagesResultMetadataPaginationLinks {
 
   const LanguagesResultMetadataPaginationLinks(this.previous, this.next);
 
-  factory LanguagesResultMetadataPaginationLinks.fromJson(Map<String, dynamic> json) =>
+  factory LanguagesResultMetadataPaginationLinks.fromJson(
+          Map<String, dynamic> json) =>
       _$LanguagesResultMetadataPaginationLinksFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$LanguagesResultMetadataPaginationLinksToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$LanguagesResultMetadataPaginationLinksToJson(this);
 }
 
 /// Information of a language.
@@ -130,7 +138,8 @@ class LanguageInfo {
       this.bibles,
       this.resources);
 
-  factory LanguageInfo.fromJson(Map<String, dynamic> json) => _$LanguageInfoFromJson(json);
+  factory LanguageInfo.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoToJson(this);
@@ -154,10 +163,21 @@ class LanguageInfoBible {
   final List<LanguageInfoBibleTranslation>? translations;
   final List<LanguageInfoBibleFileset>? filesets;
 
-  const LanguageInfoBible(this.id, this.languageId, this.versification, this.numeralSystemId, this.scope, this.script,
-      this.derived, this.copyright, this.reviewed, this.translations, this.filesets);
+  const LanguageInfoBible(
+      this.id,
+      this.languageId,
+      this.versification,
+      this.numeralSystemId,
+      this.scope,
+      this.script,
+      this.derived,
+      this.copyright,
+      this.reviewed,
+      this.translations,
+      this.filesets);
 
-  factory LanguageInfoBible.fromJson(Map<String, dynamic> json) => _$LanguageInfoBibleFromJson(json);
+  factory LanguageInfoBible.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoBibleFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoBibleToJson(this);
@@ -176,8 +196,8 @@ class LanguageInfoBibleTranslation {
   final String? name;
   final String? description;
 
-  const LanguageInfoBibleTranslation(
-      this.languageId, this.bibleId, this.vernacular, this.vernacularTrade, this.name, this.description);
+  const LanguageInfoBibleTranslation(this.languageId, this.bibleId,
+      this.vernacular, this.vernacularTrade, this.name, this.description);
 
   factory LanguageInfoBibleTranslation.fromJson(Map<String, dynamic> json) =>
       _$LanguageInfoBibleTranslationFromJson(json);
@@ -200,10 +220,11 @@ class LanguageInfoBibleFileset {
   final String? laravelThroughKey;
   final List<LanguageInfoBibleFilesetMetadata>? meta;
 
-  const LanguageInfoBibleFileset(
-      this.id, this.assetId, this.setTypeCode, this.setSizeCode, this.laravelThroughKey, this.meta);
+  const LanguageInfoBibleFileset(this.id, this.assetId, this.setTypeCode,
+      this.setSizeCode, this.laravelThroughKey, this.meta);
 
-  factory LanguageInfoBibleFileset.fromJson(Map<String, dynamic> json) => _$LanguageInfoBibleFilesetFromJson(json);
+  factory LanguageInfoBibleFileset.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoBibleFilesetFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoBibleFilesetToJson(this);
@@ -220,13 +241,16 @@ class LanguageInfoBibleFilesetMetadata {
   @JsonKey(name: 'language_id')
   final int? languageId;
 
-  const LanguageInfoBibleFilesetMetadata(this.hashId, this.name, this.description, this.iso, this.languageId);
+  const LanguageInfoBibleFilesetMetadata(
+      this.hashId, this.name, this.description, this.iso, this.languageId);
 
-  factory LanguageInfoBibleFilesetMetadata.fromJson(Map<String, dynamic> json) =>
+  factory LanguageInfoBibleFilesetMetadata.fromJson(
+          Map<String, dynamic> json) =>
       _$LanguageInfoBibleFilesetMetadataFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$LanguageInfoBibleFilesetMetadataToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$LanguageInfoBibleFilesetMetadataToJson(this);
 }
 
 /// A resource of a [LanguageInfo].
@@ -247,10 +271,20 @@ class LanguageInfoResource {
   final List<LanguageInfoResourceTranslation>? translations;
   final List<LanguageInfoResourceLink>? links;
 
-  const LanguageInfoResource(this.id, this.languageId, this.iso, this.organizationId, this.sourceId, this.cover,
-      this.coverThumbnail, this.type, this.translations, this.links);
+  const LanguageInfoResource(
+      this.id,
+      this.languageId,
+      this.iso,
+      this.organizationId,
+      this.sourceId,
+      this.cover,
+      this.coverThumbnail,
+      this.type,
+      this.translations,
+      this.links);
 
-  factory LanguageInfoResource.fromJson(Map<String, dynamic> json) => _$LanguageInfoResourceFromJson(json);
+  factory LanguageInfoResource.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoResourceFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoResourceToJson(this);
@@ -264,13 +298,15 @@ class LanguageInfoResourceTranslation {
   final String? title;
   final String? description;
 
-  const LanguageInfoResourceTranslation(this.languageId, this.title, this.description);
+  const LanguageInfoResourceTranslation(
+      this.languageId, this.title, this.description);
 
   factory LanguageInfoResourceTranslation.fromJson(Map<String, dynamic> json) =>
       _$LanguageInfoResourceTranslationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$LanguageInfoResourceTranslationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$LanguageInfoResourceTranslationToJson(this);
 }
 
 /// A link of a [LanguageInfoResource].
@@ -282,7 +318,8 @@ class LanguageInfoResourceLink {
 
   const LanguageInfoResourceLink(this.title, this.type, this.url);
 
-  factory LanguageInfoResourceLink.fromJson(Map<String, dynamic> json) => _$LanguageInfoResourceLinkFromJson(json);
+  factory LanguageInfoResourceLink.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoResourceLinkFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoResourceLinkToJson(this);
@@ -295,7 +332,8 @@ class LanguageInfoResult {
 
   const LanguageInfoResult(this.data);
 
-  factory LanguageInfoResult.fromJson(Map<String, dynamic> json) => _$LanguageInfoResultFromJson(json);
+  factory LanguageInfoResult.fromJson(Map<String, dynamic> json) =>
+      _$LanguageInfoResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageInfoResultToJson(this);
@@ -312,9 +350,11 @@ class LanguageSearch {
   final String? autonym;
   final int? bibles;
 
-  const LanguageSearch(this.id, this.glottoId, this.iso, this.name, this.autonym, this.bibles);
+  const LanguageSearch(
+      this.id, this.glottoId, this.iso, this.name, this.autonym, this.bibles);
 
-  factory LanguageSearch.fromJson(Map<String, dynamic> json) => _$LanguageSearchFromJson(json);
+  factory LanguageSearch.fromJson(Map<String, dynamic> json) =>
+      _$LanguageSearchFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageSearchToJson(this);
@@ -328,7 +368,8 @@ class LanguageSearchResult {
 
   const LanguageSearchResult(this.data, this.meta);
 
-  factory LanguageSearchResult.fromJson(Map<String, dynamic> json) => _$LanguageSearchResultFromJson(json);
+  factory LanguageSearchResult.fromJson(Map<String, dynamic> json) =>
+      _$LanguageSearchResultFromJson(json);
 
   /// Returns the json representation of this model.
   Map<String, dynamic> toJson() => _$LanguageSearchResultToJson(this);
@@ -360,11 +401,14 @@ class LanguageSearchResultMetadataPagination {
   @JsonKey(name: 'total_pages')
   final int? totalPages;
 
-  const LanguageSearchResultMetadataPagination(this.total, this.count, this.perPage, this.currentPage, this.totalPages);
+  const LanguageSearchResultMetadataPagination(
+      this.total, this.count, this.perPage, this.currentPage, this.totalPages);
 
-  factory LanguageSearchResultMetadataPagination.fromJson(Map<String, dynamic> json) =>
+  factory LanguageSearchResultMetadataPagination.fromJson(
+          Map<String, dynamic> json) =>
       _$LanguageSearchResultMetadataPaginationFromJson(json);
 
   /// Returns the json representation of this model.
-  Map<String, dynamic> toJson() => _$LanguageSearchResultMetadataPaginationToJson(this);
+  Map<String, dynamic> toJson() =>
+      _$LanguageSearchResultMetadataPaginationToJson(this);
 }
