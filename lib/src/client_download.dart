@@ -17,8 +17,11 @@ class DownloadClient {
     int currentPage = 0;
     int totalPages = 0;
     do {
-      final response = await _client.get(ApiEndpoints.downloadList,
-          deserializer: DownloadableFilesetResult.fromJson, query: query);
+      final response = await _client.get(
+        ApiEndpoints.downloadList,
+        deserializer: DownloadableFilesetResult.fromJson,
+        query: query,
+      );
       if (response == null) break;
 
       filesets.addAll(response.data ?? []);
@@ -38,19 +41,48 @@ class DownloadClient {
   }
 
   /// Returns a paginated list of downloadable filesets.
-  Future<DownloadableFilesetResult?> getDownloadableFilesetsPaginated(
-      {required int page, int? limit}) async {
-    return await _client.get(ApiEndpoints.downloadList,
-        deserializer: DownloadableFilesetResult.fromJson,
-        query: {'limit': limit, 'page': page});
+  Future<DownloadableFilesetResult?> getDownloadableFilesetsPaginated({
+    required int page,
+    int? limit,
+  }) async {
+    return await _client.get(
+      ApiEndpoints.downloadList,
+      deserializer: DownloadableFilesetResult.fromJson,
+      query: {'limit': limit, 'page': page},
+    );
+  }
+
+  /// Returns a paginated list of downloadable filesets in json.
+  Future<String?> getDownloadableFilesetsPaginatedJson({
+    required int page,
+    int? limit,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.downloadList,
+      query: {'limit': limit, 'page': page},
+    );
   }
 
   /// Returns a list of download content.
   Future<DownloadContentResult?> getDownloadContent(
-      String filesetId, String bookId,
-      {int? chapter}) async {
+    String filesetId,
+    String bookId, {
+    int? chapter,
+  }) async {
     return await _client.get(
-        ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
-        deserializer: DownloadContentResult.fromJson);
+      ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
+      deserializer: DownloadContentResult.fromJson,
+    );
+  }
+
+  /// Returns a list of download content in json.
+  Future<String?> getDownloadContentJson(
+    String filesetId,
+    String bookId, {
+    int? chapter,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
+    );
   }
 }

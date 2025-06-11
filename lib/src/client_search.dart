@@ -10,23 +10,29 @@ class SearchClient {
   SearchClient(this._client);
 
   /// Search a bible for a word.
-  Future<List<SearchResult>> search(String query, String filesetId,
-      {List<String>? books}) async {
+  Future<List<SearchResult>> search(
+    String query,
+    String filesetId, {
+    List<String>? books,
+  }) async {
     var searches = <SearchResult>[];
     var queryMap = <String, Object?>{
       'query': query,
       'fileset_id': filesetId,
       'limit': 1000,
       'page': 1,
-      'books': books != null && books.isNotEmpty ? books.join(',') : null
+      'books': books != null && books.isNotEmpty ? books.join(',') : null,
     };
 
     int currentPage = 0;
     int totalPages = 0;
     bool isMetaNull = false;
     do {
-      final response = await _client.get(ApiEndpoints.search,
-          deserializer: SearchResult.fromJson, query: queryMap);
+      final response = await _client.get(
+        ApiEndpoints.search,
+        deserializer: SearchResult.fromJson,
+        query: queryMap,
+      );
       if (response == null) break;
 
       searches.add(response);
@@ -53,16 +59,42 @@ class SearchClient {
   }
 
   /// Returns a paginated list of search results.
-  Future<SearchResult?> searchPaginated(String query, String filesetId,
-      {List<String>? books, required int page, int? limit}) async {
+  Future<SearchResult?> searchPaginated(
+    String query,
+    String filesetId, {
+    List<String>? books,
+    required int page,
+    int? limit,
+  }) async {
     var queryMap = <String, Object?>{
       'query': query,
       'fileset_id': filesetId,
       'books': books != null && books.isNotEmpty ? books.join(',') : null,
       'limit': limit,
-      'page': page
+      'page': page,
     };
-    return await _client.get(ApiEndpoints.search,
-        deserializer: SearchResult.fromJson, query: queryMap);
+    return await _client.get(
+      ApiEndpoints.search,
+      deserializer: SearchResult.fromJson,
+      query: queryMap,
+    );
+  }
+
+  /// Returns a paginated list of search results in json.
+  Future<String?> searchPaginatedJson(
+    String query,
+    String filesetId, {
+    List<String>? books,
+    required int page,
+    int? limit,
+  }) async {
+    var queryMap = <String, Object?>{
+      'query': query,
+      'fileset_id': filesetId,
+      'books': books != null && books.isNotEmpty ? books.join(',') : null,
+      'limit': limit,
+      'page': page,
+    };
+    return await _client.getJson(ApiEndpoints.search, query: queryMap);
   }
 }
