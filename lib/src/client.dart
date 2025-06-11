@@ -28,8 +28,8 @@ class BibleBrainClient {
 
   /// Creates a new instance of [BibleBrainClient].
   BibleBrainClient({required String apiKey, http.Client? client})
-      : _client = client ?? http.Client(),
-        _headers = {"v": "4", "key": apiKey};
+    : _client = client ?? http.Client(),
+      _headers = {"v": "4", "key": apiKey};
 
   /// Provides access to the Alphabets resource.
   AlphabetClient get alphabet => AlphabetClient(this);
@@ -62,8 +62,9 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
   }) async {
     try {
-      final url =
-          _baseUrl.resolve(endpoint).replace(queryParameters: _toQuery(query));
+      final url = _baseUrl
+          .resolve(endpoint)
+          .replace(queryParameters: _toQuery(query));
       final response = await _client.get(url, headers: _headers);
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       return deserializer(json);
@@ -79,8 +80,9 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
   }) async {
     try {
-      final url =
-          _baseUrl.resolve(endpoint).replace(queryParameters: _toQuery(query));
+      final url = _baseUrl
+          .resolve(endpoint)
+          .replace(queryParameters: _toQuery(query));
       final response = await _client.get(url, headers: _headers);
       final json = jsonDecode(response.body) as List<dynamic>;
       return deserializer(json);
@@ -97,12 +99,31 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
   }) async {
     try {
-      final url =
-          _baseUrl.resolve(endpoint).replace(queryParameters: _toQuery(query));
+      final url = _baseUrl
+          .resolve(endpoint)
+          .replace(queryParameters: _toQuery(query));
       final response = await _client.get(url, headers: _headers);
       final json = jsonDecode(response.body) as Map<String, dynamic>;
-      return json.map((key, value) =>
-          MapEntry(keyDeserializer(key), valueDeserializer(value)));
+      return json.map(
+        (key, value) =>
+            MapEntry(keyDeserializer(key), valueDeserializer(value)),
+      );
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /// Executes an http GET request and returns the raw json response.
+  Future<String?> getJson(
+    String endpoint, {
+    Map<String, Object?> query = const <String, Object?>{},
+  }) async {
+    try {
+      final url = _baseUrl
+          .resolve(endpoint)
+          .replace(queryParameters: _toQuery(query));
+      final response = await _client.get(url, headers: _headers);
+      return response.body;
     } catch (e) {
       return null;
     }
@@ -115,6 +136,7 @@ class BibleBrainClient {
 }
 
 Map<String, String> _toQuery(Map<String, Object?> params) {
-  return (Map.of(params)..removeWhere((key, value) => value == null))
-      .map((key, value) => MapEntry(key, value.toString()));
+  return (Map.of(params)..removeWhere(
+    (key, value) => value == null,
+  )).map((key, value) => MapEntry(key, value.toString()));
 }

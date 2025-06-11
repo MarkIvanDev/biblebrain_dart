@@ -3,7 +3,11 @@ import 'package:test/test.dart';
 import 'env.dart';
 
 void main() {
-  final client = BibleBrainClient(apiKey: Env.apiKey);
+  late final BibleBrainClient client;
+
+  setUpAll(() {
+    client = BibleBrainClient(apiKey: Env.apiKey);
+  });
 
   group('Alphabet', () {
     test('getAlphabets', () async {
@@ -72,8 +76,12 @@ void main() {
     });
 
     test('getVersesByLanguagePaginated', () async {
-      final verses = await client.bible
-          .getVersesByLanguagePaginated('eng', 'MAT', 1, page: 1);
+      final verses = await client.bible.getVersesByLanguagePaginated(
+        'eng',
+        'MAT',
+        1,
+        page: 1,
+      );
       expect(verses, isNotNull);
     });
 
@@ -83,8 +91,12 @@ void main() {
     });
 
     test('getVersesByVersionPaginated', () async {
-      final verses = await client.bible
-          .getVersesByVersionPaginated('ENGKJV', 'MAT', 1, page: 1);
+      final verses = await client.bible.getVersesByVersionPaginated(
+        'ENGKJV',
+        'MAT',
+        1,
+        page: 1,
+      );
       expect(verses, isNotNull);
     });
 
@@ -94,8 +106,10 @@ void main() {
     });
 
     test('searchBiblesByVersionPaginated', () async {
-      final bibles =
-          await client.bible.searchBiblesByVersionPaginated('KJV', page: 1);
+      final bibles = await client.bible.searchBiblesByVersionPaginated(
+        'KJV',
+        page: 1,
+      );
       expect(bibles, isNotNull);
     });
 
@@ -110,8 +124,11 @@ void main() {
     });
 
     test('getVerseInfo', () async {
-      final verses =
-          await client.bible.getVerseInfo('ENGKJV', 'MAT', chapter: 1);
+      final verses = await client.bible.getVerseInfo(
+        'ENGKJV',
+        'MAT',
+        chapter: 1,
+      );
       expect(verses, isNotNull);
     });
   });
@@ -138,8 +155,10 @@ void main() {
     });
 
     test('searchCountriesPaginated', () async {
-      final countries =
-          await client.country.searchCountriesPaginated('south', page: 1);
+      final countries = await client.country.searchCountriesPaginated(
+        'south',
+        page: 1,
+      );
       expect(countries, isNotNull);
     });
   });
@@ -151,14 +170,18 @@ void main() {
     }, timeout: const Timeout(Duration(minutes: 1)));
 
     test('getDownloadableFilesetsPaginated', () async {
-      final filesets =
-          await client.download.getDownloadableFilesetsPaginated(page: 1);
+      final filesets = await client.download.getDownloadableFilesetsPaginated(
+        page: 1,
+      );
       expect(filesets, isNotNull);
     });
 
     test('getDownloadContent', () async {
-      final contents =
-          await client.download.getDownloadContent('ENGKJV', 'MAT', chapter: 1);
+      final contents = await client.download.getDownloadContent(
+        'ENGKJV',
+        'MAT',
+        chapter: 1,
+      );
       expect(contents, isNotNull);
     });
   });
@@ -185,8 +208,10 @@ void main() {
     });
 
     test('searchLanguagesPaginated', () async {
-      final languages =
-          await client.language.searchLanguagesPaginated('tagalog', page: 1);
+      final languages = await client.language.searchLanguagesPaginated(
+        'tagalog',
+        page: 1,
+      );
       expect(languages, isNotNull);
     });
   });
@@ -210,8 +235,11 @@ void main() {
     });
 
     test('searchPaginated', () async {
-      final searches =
-          await client.search.searchPaginated('love', 'ENGKJV', page: 1);
+      final searches = await client.search.searchPaginated(
+        'love',
+        'ENGKJV',
+        page: 1,
+      );
       expect(searches, isNotNull);
     });
   });
@@ -223,8 +251,11 @@ void main() {
     });
 
     test('getTimestamps', () async {
-      final timestamps =
-          await client.timestamp.getTimestamps('ENGKJVO1DA', 'GEN', 1);
+      final timestamps = await client.timestamp.getTimestamps(
+        'ENGKJVO1DA',
+        'GEN',
+        1,
+      );
       expect(timestamps, isNotNull);
     });
   });
