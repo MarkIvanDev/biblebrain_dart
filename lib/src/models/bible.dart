@@ -352,7 +352,7 @@ class CopyrightInfo {
   @JsonKey(name: 'updated_at')
   final String? updatedAt;
   @JsonKey(name: 'open_access')
-  final int? openAccess;
+  final bool? openAccess;
   final List<Organization> organizations;
 
   const CopyrightInfo(this.date, this.copyright, this.description,
