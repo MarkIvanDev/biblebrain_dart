@@ -1,6 +1,6 @@
 name: biblebrain_dart
 description: A dart wrapper for the Bible Brain (aka Digital Bible Platform v4) API.
-version: 2.1.0
+version: 2.2.0
 repository: https://github.com/MarkIvanDev/biblebrain_dart.git
 issue_tracker: https://github.com/MarkIvanDev/biblebrain_dart/issues
 
