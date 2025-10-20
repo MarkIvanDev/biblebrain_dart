@@ -7,13 +7,13 @@ part of 'search.dart';
 // **************************************************************************
 
 SearchResult _$SearchResultFromJson(Map<String, dynamic> json) => SearchResult(
-      (json['audio_filesets'] as List<dynamic>?)
-          ?.map((e) => SearchAudioFileset.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      json['verses'] == null
-          ? null
-          : VersesResult.fromJson(json['verses'] as Map<String, dynamic>),
-    );
+  (json['audio_filesets'] as List<dynamic>?)
+      ?.map((e) => SearchAudioFileset.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  json['verses'] == null
+      ? null
+      : VersesResult.fromJson(json['verses'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$SearchResultToJson(SearchResult instance) =>
     <String, dynamic>{
@@ -29,8 +29,10 @@ SearchAudioFileset _$SearchAudioFilesetFromJson(Map<String, dynamic> json) =>
       json['set_size_code'] as String?,
       json['laravel_through_key'] as String?,
       (json['meta'] as List<dynamic>?)
-          ?.map((e) =>
-              SearchAudioFilesetMetadata.fromJson(e as Map<String, dynamic>))
+          ?.map(
+            (e) =>
+                SearchAudioFilesetMetadata.fromJson(e as Map<String, dynamic>),
+          )
           .toList(),
     );
 
@@ -45,21 +47,21 @@ Map<String, dynamic> _$SearchAudioFilesetToJson(SearchAudioFileset instance) =>
     };
 
 SearchAudioFilesetMetadata _$SearchAudioFilesetMetadataFromJson(
-        Map<String, dynamic> json) =>
-    SearchAudioFilesetMetadata(
-      json['hashId'] as String?,
-      json['name'] as String?,
-      json['description'] as String?,
-      json['iso'] as String?,
-      json['language_id'] as int?,
-    );
+  Map<String, dynamic> json,
+) => SearchAudioFilesetMetadata(
+  json['hashId'] as String?,
+  json['name'] as String?,
+  json['description'] as String?,
+  json['iso'] as String?,
+  (json['language_id'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$SearchAudioFilesetMetadataToJson(
-        SearchAudioFilesetMetadata instance) =>
-    <String, dynamic>{
-      'hashId': instance.hashId,
-      'name': instance.name,
-      'description': instance.description,
-      'iso': instance.iso,
-      'language_id': instance.languageId,
-    };
+  SearchAudioFilesetMetadata instance,
+) => <String, dynamic>{
+  'hashId': instance.hashId,
+  'name': instance.name,
+  'description': instance.description,
+  'iso': instance.iso,
+  'language_id': instance.languageId,
+};

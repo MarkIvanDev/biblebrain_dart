@@ -13,6 +13,7 @@ class CountryClient {
   Future<List<Country>> getCountries({
     String? l10n,
     bool? includeLanguages,
+    BibleBrainClientOptions? options,
   }) async {
     var countries = <Country>[];
     var query = <String, Object?>{
@@ -27,6 +28,7 @@ class CountryClient {
         ApiEndpoints.countries,
         deserializer: CountriesResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -51,6 +53,7 @@ class CountryClient {
     bool? includeLanguages,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.countries,
@@ -61,6 +64,7 @@ class CountryClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
@@ -70,6 +74,7 @@ class CountryClient {
     bool? includeLanguages,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.countries,
@@ -79,24 +84,38 @@ class CountryClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
   /// Returns details for a single country.
-  Future<CountryInfoResult?> getCountry(String countryId) async {
+  Future<CountryInfoResult?> getCountry(
+    String countryId, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getCountry(countryId),
       deserializer: CountryInfoResult.fromJson,
+      options: options,
     );
   }
 
   /// Returns details for a single country in json.
-  Future<String?> getCountryJson(String countryId) async {
-    return await _client.getJson(ApiEndpoints.getCountry(countryId));
+  Future<String?> getCountryJson(
+    String countryId, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getCountry(countryId),
+      options: options,
+    );
   }
 
   /// Returns the list of countries that have [searchText] in its name.
-  Future<List<CountrySearch>> searchCountries(String searchText) async {
+  Future<List<CountrySearch>> searchCountries(
+    String searchText, {
+    BibleBrainClientOptions? options,
+  }) async {
     var countries = <CountrySearch>[];
     var query = <String, Object?>{};
 
@@ -107,6 +126,7 @@ class CountryClient {
         ApiEndpoints.getCountrySearch(searchText),
         deserializer: CountrySearchResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -131,11 +151,13 @@ class CountryClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getCountrySearch(searchText),
       deserializer: CountrySearchResult.fromJson,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -144,10 +166,12 @@ class CountryClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getCountrySearch(searchText),
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 }

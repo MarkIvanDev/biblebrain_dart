@@ -19,6 +19,7 @@ class BibleClient {
     MediaType? mediaExclude,
     String? size,
     String? sizeExclude,
+    BibleBrainClientOptions? options,
   }) async {
     var bibles = <Bible>[];
     var query = <String, Object?>{
@@ -37,6 +38,7 @@ class BibleClient {
         ApiEndpoints.bibles,
         deserializer: BiblesResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -66,6 +68,7 @@ class BibleClient {
     String? sizeExclude,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.bibles,
@@ -80,6 +83,7 @@ class BibleClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
@@ -93,6 +97,7 @@ class BibleClient {
     String? sizeExclude,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.bibles,
@@ -106,61 +111,92 @@ class BibleClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
   /// Returns detailed metadata for a single bible.
-  Future<BibleInfoResult?> getBible(String bibleId) async {
+  Future<BibleInfoResult?> getBible(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getBible(bibleId),
       deserializer: BibleInfoResult.fromJson,
+      options: options,
     );
   }
 
   /// Returns detailed metadata for a single bible in json.
-  Future<String?> getBibleJson(String bibleId) async {
-    return await _client.getJson(ApiEndpoints.getBible(bibleId));
+  Future<String?> getBibleJson(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getBible(bibleId),
+      options: options,
+    );
   }
 
   /// Returns book information for a bible.
-  Future<BooksResult?> getBooks(String bibleId) async {
+  Future<BooksResult?> getBooks(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getBooks(bibleId),
       deserializer: BooksResult.fromJson,
+      options: options,
     );
   }
 
   /// Returns book information for a bible in json.
-  Future<String?> getBooksJson(String bibleId) async {
-    return await _client.getJson(ApiEndpoints.getBooks(bibleId));
+  Future<String?> getBooksJson(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getBooks(bibleId),
+      options: options,
+    );
   }
 
   /// Returns bible copyright information.
-  Future<List<Copyright>> getCopyright(String bibleId) async {
+  Future<List<Copyright>> getCopyright(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getList(
       ApiEndpoints.getCopyright(bibleId),
-      deserializer:
-          (body) =>
-              body
-                  .map((e) => Copyright.fromJson(e as Map<String, dynamic>))
-                  .toList(),
+      deserializer: (body) => body
+          .map((e) => Copyright.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      options: options,
     );
   }
 
   /// Returns bible copyright information in json.
-  Future<String?> getCopyrightJson(String bibleId) async {
-    return await _client.getJson(ApiEndpoints.getCopyright(bibleId));
+  Future<String?> getCopyrightJson(
+    String bibleId, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getCopyright(bibleId),
+      options: options,
+    );
   }
 
   /// Returns content for a single fileset, book and chapter.
   Future<VersesResult?> getChapter(
     String filesetId,
     String bookId,
-    int chapter,
-  ) async {
+    int chapter, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getChapter(filesetId, bookId, chapter),
       deserializer: VersesResult.fromJson,
+      options: options,
     );
   }
 
@@ -168,40 +204,50 @@ class BibleClient {
   Future<String?> getChapterJson(
     String filesetId,
     String bookId,
-    int chapter,
-  ) async {
+    int chapter, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getJson(
       ApiEndpoints.getChapter(filesetId, bookId, chapter),
+      options: options,
     );
   }
 
   /// Returns the default bibles for all languages.
-  Future<Map<String, DefaultBible>?> getDefaultBibles() async {
+  Future<Map<String, DefaultBible>?> getDefaultBibles({
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getMap(
       ApiEndpoints.defaultBibles,
       keyDeserializer: (key) => key,
-      valueDeserializer:
-          (value) => DefaultBible.fromJson(value as Map<String, dynamic>),
+      valueDeserializer: (value) =>
+          DefaultBible.fromJson(value as Map<String, dynamic>),
+      options: options,
     );
   }
 
   /// Returns the default bibles for all languages in json.
-  Future<String?> getDefaultBiblesJson() async {
-    return await _client.getJson(ApiEndpoints.defaultBibles);
+  Future<String?> getDefaultBiblesJson({
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(ApiEndpoints.defaultBibles, options: options);
   }
 
   /// Returns the list of all the media types that exist within the filesets.
-  Future<Map<MediaType?, String>?> getMediaTypes() async {
+  Future<Map<MediaType?, String>?> getMediaTypes({
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getMap(
       ApiEndpoints.mediaTypes,
       keyDeserializer: (key) => MediaTypeConverter().fromJson(key),
       valueDeserializer: (value) => value as String,
+      options: options,
     );
   }
 
   /// Returns the list of all the media types that exist within the filesets in json.
-  Future<String?> getMediaTypesJson() async {
-    return await _client.getJson(ApiEndpoints.mediaTypes);
+  Future<String?> getMediaTypesJson({BibleBrainClientOptions? options}) async {
+    return await _client.getJson(ApiEndpoints.mediaTypes, options: options);
   }
 
   /// Returns the list of bible verses by language.
@@ -210,6 +256,7 @@ class BibleClient {
     String bookId,
     int chapter, {
     int? verse,
+    BibleBrainClientOptions? options,
   }) async {
     var verses = <VerseByLanguage>[];
     var query = <String, Object?>{};
@@ -226,6 +273,7 @@ class BibleClient {
         ),
         deserializer: VerseByLanguageResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -253,6 +301,7 @@ class BibleClient {
     int? verse,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getVersesByLanguage(
@@ -263,6 +312,7 @@ class BibleClient {
       ),
       deserializer: VerseByLanguageResult.fromJson,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -274,6 +324,7 @@ class BibleClient {
     int? verse,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getVersesByLanguage(
@@ -283,6 +334,7 @@ class BibleClient {
         verse: verse,
       ),
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -292,6 +344,7 @@ class BibleClient {
     String bookId,
     int chapter, {
     int? verse,
+    BibleBrainClientOptions? options,
   }) async {
     var verses = <VerseByVersion>[];
     var query = <String, Object?>{};
@@ -303,6 +356,7 @@ class BibleClient {
         ApiEndpoints.getVersesByVersion(bibleId, bookId, chapter, verse: verse),
         deserializer: VerseByVersionResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -330,11 +384,13 @@ class BibleClient {
     int? verse,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getVersesByVersion(bibleId, bookId, chapter, verse: verse),
       deserializer: VerseByVersionResult.fromJson,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -346,17 +402,20 @@ class BibleClient {
     int? verse,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getVersesByVersion(bibleId, bookId, chapter, verse: verse),
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
   /// Returns the list of bibles meeting the given [version].
   Future<List<BibleSearchByVersion>> searchBiblesByVersion(
-    String version,
-  ) async {
+    String version, {
+    BibleBrainClientOptions? options,
+  }) async {
     var bibles = <BibleSearchByVersion>[];
     var query = <String, Object?>{'version': version};
 
@@ -367,6 +426,7 @@ class BibleClient {
         ApiEndpoints.bibleSearch,
         deserializer: BibleSearchByVersionResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -391,11 +451,13 @@ class BibleClient {
     String version, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.bibleSearch,
       deserializer: BibleSearchByVersionResult.fromJson,
       query: {'version': version, 'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -404,15 +466,20 @@ class BibleClient {
     String version, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.bibleSearch,
       query: {'version': version, 'limit': limit, 'page': page},
+      options: options,
     );
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
-  Future<List<BibleSearch>> searchBibles(String searchText) async {
+  Future<List<BibleSearch>> searchBibles(
+    String searchText, {
+    BibleBrainClientOptions? options,
+  }) async {
     var bibles = <BibleSearch>[];
     var query = <String, Object?>{};
 
@@ -423,6 +490,7 @@ class BibleClient {
         ApiEndpoints.getBibleSearch(searchText),
         deserializer: BibleSearchResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -447,11 +515,13 @@ class BibleClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getBibleSearch(searchText),
       deserializer: BibleSearchResult.fromJson,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -460,10 +530,12 @@ class BibleClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getBibleSearch(searchText),
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -472,10 +544,12 @@ class BibleClient {
     String filesetId,
     String bookId, {
     int? chapter,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getVerseInfo(filesetId, bookId, chapter: chapter),
       deserializer: VerseInfoResult.fromJson,
+      options: options,
     );
   }
 
@@ -484,9 +558,11 @@ class BibleClient {
     String filesetId,
     String bookId, {
     int? chapter,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getVerseInfo(filesetId, bookId, chapter: chapter),
+      options: options,
     );
   }
 }
