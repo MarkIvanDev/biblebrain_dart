@@ -15,6 +15,7 @@ class LanguageClient {
     String? languageCode,
     String? languageName,
     bool? includeTranslations,
+    BibleBrainClientOptions? options,
   }) async {
     var languages = <Language>[];
     var query = <String, Object?>{
@@ -31,6 +32,7 @@ class LanguageClient {
         ApiEndpoints.languages,
         deserializer: LanguagesResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -58,6 +60,7 @@ class LanguageClient {
     bool? includeTranslations,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.languages,
@@ -70,6 +73,7 @@ class LanguageClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
@@ -81,6 +85,7 @@ class LanguageClient {
     bool? includeTranslations,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.languages,
@@ -92,24 +97,38 @@ class LanguageClient {
         'limit': limit,
         'page': page,
       },
+      options: options,
     );
   }
 
   /// Returns details for a single language.
-  Future<LanguageInfoResult?> getLanguage(int languageId) async {
+  Future<LanguageInfoResult?> getLanguage(
+    int languageId, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getLanguage(languageId),
       deserializer: LanguageInfoResult.fromJson,
+      options: options,
     );
   }
 
   /// Returns details for a single language in json.
-  Future<String?> getLanguageJson(int languageId) async {
-    return await _client.getJson(ApiEndpoints.getLanguage(languageId));
+  Future<String?> getLanguageJson(
+    int languageId, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getLanguage(languageId),
+      options: options,
+    );
   }
 
   /// Returns the list of languages that have [searchText] in its name or country.
-  Future<List<LanguageSearch>> searchLanguages(String searchText) async {
+  Future<List<LanguageSearch>> searchLanguages(
+    String searchText, {
+    BibleBrainClientOptions? options,
+  }) async {
     var languages = <LanguageSearch>[];
     var query = <String, Object?>{};
 
@@ -119,6 +138,7 @@ class LanguageClient {
       final response = await _client.get(
         ApiEndpoints.getLanguageSearch(searchText),
         deserializer: LanguageSearchResult.fromJson,
+        options: options,
       );
       if (response == null) break;
 
@@ -142,11 +162,13 @@ class LanguageClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getLanguageSearch(searchText),
       deserializer: LanguageSearchResult.fromJson,
       query: <String, Object?>{'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -155,10 +177,12 @@ class LanguageClient {
     String searchText, {
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getLanguageSearch(searchText),
       query: <String, Object?>{'limit': limit, 'page': page},
+      options: options,
     );
   }
 }

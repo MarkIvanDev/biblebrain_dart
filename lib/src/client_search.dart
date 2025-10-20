@@ -14,6 +14,7 @@ class SearchClient {
     String query,
     String filesetId, {
     List<String>? books,
+    BibleBrainClientOptions? options,
   }) async {
     var searches = <SearchResult>[];
     var queryMap = <String, Object?>{
@@ -32,6 +33,7 @@ class SearchClient {
         ApiEndpoints.search,
         deserializer: SearchResult.fromJson,
         query: queryMap,
+        options: options,
       );
       if (response == null) break;
 
@@ -65,6 +67,7 @@ class SearchClient {
     List<String>? books,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     var queryMap = <String, Object?>{
       'query': query,
@@ -77,6 +80,7 @@ class SearchClient {
       ApiEndpoints.search,
       deserializer: SearchResult.fromJson,
       query: queryMap,
+      options: options,
     );
   }
 
@@ -87,6 +91,7 @@ class SearchClient {
     List<String>? books,
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     var queryMap = <String, Object?>{
       'query': query,
@@ -95,6 +100,10 @@ class SearchClient {
       'limit': limit,
       'page': page,
     };
-    return await _client.getJson(ApiEndpoints.search, query: queryMap);
+    return await _client.getJson(
+      ApiEndpoints.search,
+      query: queryMap,
+      options: options,
+    );
   }
 }

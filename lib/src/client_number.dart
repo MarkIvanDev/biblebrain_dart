@@ -10,28 +10,39 @@ class NumberClient {
   NumberClient(this._client);
 
   /// Return all alphabets that have custom number sets.
-  Future<NumbersResult?> getNumbers() async {
+  Future<NumbersResult?> getNumbers({BibleBrainClientOptions? options}) async {
     return await _client.get(
       ApiEndpoints.numbers,
       deserializer: NumbersResult.fromJson,
+      options: options,
     );
   }
 
   /// Return all alphabets that have custom number sets in json.
-  Future<String?> getNumbersJson() async {
-    return await _client.getJson(ApiEndpoints.numbers);
+  Future<String?> getNumbersJson({BibleBrainClientOptions? options}) async {
+    return await _client.getJson(ApiEndpoints.numbers, options: options);
   }
 
   /// Return a single custom number set.
-  Future<NumberInfoResult?> getNumber(String numeralSystem) async {
+  Future<NumberInfoResult?> getNumber(
+    String numeralSystem, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getNumber(numeralSystem),
       deserializer: NumberInfoResult.fromJson,
+      options: options,
     );
   }
 
   /// Return a single custom number set in json.
-  Future<String?> getNumberJson(String numeralSystem) async {
-    return await _client.getJson(ApiEndpoints.getNumber(numeralSystem));
+  Future<String?> getNumberJson(
+    String numeralSystem, {
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(
+      ApiEndpoints.getNumber(numeralSystem),
+      options: options,
+    );
   }
 }

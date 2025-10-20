@@ -10,7 +10,9 @@ class DownloadClient {
   DownloadClient(this._client);
 
   /// Returns the list of downloadable filesets.
-  Future<List<DownloadableFileset>> getDownloadableFilesets() async {
+  Future<List<DownloadableFileset>> getDownloadableFilesets({
+    BibleBrainClientOptions? options,
+  }) async {
     var filesets = <DownloadableFileset>[];
     var query = <String, Object?>{};
 
@@ -21,6 +23,7 @@ class DownloadClient {
         ApiEndpoints.downloadList,
         deserializer: DownloadableFilesetResult.fromJson,
         query: query,
+        options: options,
       );
       if (response == null) break;
 
@@ -44,11 +47,13 @@ class DownloadClient {
   Future<DownloadableFilesetResult?> getDownloadableFilesetsPaginated({
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.downloadList,
       deserializer: DownloadableFilesetResult.fromJson,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -56,10 +61,12 @@ class DownloadClient {
   Future<String?> getDownloadableFilesetsPaginatedJson({
     required int page,
     int? limit,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.downloadList,
       query: {'limit': limit, 'page': page},
+      options: options,
     );
   }
 
@@ -68,10 +75,12 @@ class DownloadClient {
     String filesetId,
     String bookId, {
     int? chapter,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
       ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
       deserializer: DownloadContentResult.fromJson,
+      options: options,
     );
   }
 
@@ -80,9 +89,11 @@ class DownloadClient {
     String filesetId,
     String bookId, {
     int? chapter,
+    BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
       ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
+      options: options,
     );
   }
 }
