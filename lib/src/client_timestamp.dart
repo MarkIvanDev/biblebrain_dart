@@ -10,31 +10,36 @@ class TimestampClient {
   TimestampClient(this._client);
 
   /// Returns bible filesets which have audio timestamps.
-  Future<List<FilesetId>> getFilesetsWithTimestamps() async {
+  Future<List<FilesetId>> getFilesetsWithTimestamps({
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getList(
       ApiEndpoints.timestamps,
-      deserializer:
-          (body) =>
-              body
-                  .map((e) => FilesetId.fromJson(e as Map<String, dynamic>))
-                  .toList(),
+      deserializer: (body) => body
+          .map((e) => FilesetId.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      options: options,
     );
   }
 
   /// Returns bible filesets which have audio timestamps in json.
-  Future<String?> getFilesetsWithTimestampsJson() async {
-    return await _client.getJson(ApiEndpoints.timestamps);
+  Future<String?> getFilesetsWithTimestampsJson({
+    BibleBrainClientOptions? options,
+  }) async {
+    return await _client.getJson(ApiEndpoints.timestamps, options: options);
   }
 
   /// Returns audio timestamps for a chapter.
   Future<TimestampsResult?> getTimestamps(
     String filesetId,
     String bookId,
-    int chapter,
-  ) async {
+    int chapter, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.get(
       ApiEndpoints.getTimestamps(filesetId, bookId, chapter),
       deserializer: TimestampsResult.fromJson,
+      options: options,
     );
   }
 
@@ -42,10 +47,12 @@ class TimestampClient {
   Future<String?> getTimestampsJson(
     String filesetId,
     String bookId,
-    int chapter,
-  ) async {
+    int chapter, {
+    BibleBrainClientOptions? options,
+  }) async {
     return await _client.getJson(
       ApiEndpoints.getTimestamps(filesetId, bookId, chapter),
+      options: options,
     );
   }
 }

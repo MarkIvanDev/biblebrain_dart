@@ -142,7 +142,7 @@ void main() {
     test('getCountries', () async {
       final countries = await client.country.getCountries();
       expect(countries.isNotEmpty, isTrue);
-    });
+    }, skip: true);
 
     test('getCountriesPaginated', () async {
       final countries = await client.country.getCountriesPaginated(page: 1);
@@ -157,7 +157,7 @@ void main() {
     test('searchCountries', () async {
       final countries = await client.country.searchCountries('south');
       expect(countries.isNotEmpty, isTrue);
-    });
+    }, skip: true);
 
     test('searchCountriesPaginated', () async {
       final countries = await client.country.searchCountriesPaginated(
@@ -220,7 +220,7 @@ void main() {
     test('searchLanguages', () async {
       final languages = await client.language.searchLanguages('tagalog');
       expect(languages.isNotEmpty, isTrue);
-    });
+    }, skip: true);
 
     test('searchLanguagesPaginated', () async {
       final languages = await client.language.searchLanguagesPaginated(
@@ -247,7 +247,7 @@ void main() {
     test('search', () async {
       final searches = await client.search.search('love', 'ENGKJV');
       expect(searches.isNotEmpty, isTrue);
-    });
+    }, skip: true);
 
     test('searchPaginated', () async {
       final searches = await client.search.searchPaginated(

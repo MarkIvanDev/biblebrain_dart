@@ -22,14 +22,22 @@ export 'client_timestamp.dart';
 
 /// A client that provides access to the BibleBrain API.
 class BibleBrainClient {
+  final BibleBrainClientOptions _options;
   final http.Client _client;
-  final Map<String, String> _headers;
   final Uri _baseUrl = Uri.parse(ApiEndpoints.base);
 
   /// Creates a new instance of [BibleBrainClient].
   BibleBrainClient({required String apiKey, http.Client? client})
-    : _client = client ?? http.Client(),
-      _headers = {"v": "4", "key": apiKey};
+    : this.withOptions(
+        options: BibleBrainClientOptions(apiKey: apiKey),
+        client: client,
+      );
+
+  BibleBrainClient.withOptions({
+    required BibleBrainClientOptions options,
+    http.Client? client,
+  }) : _options = options,
+       _client = client ?? http.Client();
 
   /// Provides access to the Alphabets resource.
   AlphabetClient get alphabet => AlphabetClient(this);
@@ -60,15 +68,20 @@ class BibleBrainClient {
     String endpoint, {
     required T Function(Map<String, dynamic> body) deserializer,
     Map<String, Object?> query = const <String, Object?>{},
+    required BibleBrainClientOptions? options,
   }) async {
+    final opts = options ?? _options;
     try {
       final url = _baseUrl
           .resolve(endpoint)
           .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: _headers);
+      final response = await _client.get(url, headers: opts.headers);
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       return deserializer(json);
     } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
       return null;
     }
   }
@@ -78,15 +91,20 @@ class BibleBrainClient {
     String endpoint, {
     required List<T> Function(List<dynamic> body) deserializer,
     Map<String, Object?> query = const <String, Object?>{},
+    required BibleBrainClientOptions? options,
   }) async {
+    final opts = options ?? _options;
     try {
       final url = _baseUrl
           .resolve(endpoint)
           .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: _headers);
+      final response = await _client.get(url, headers: opts.headers);
       final json = jsonDecode(response.body) as List<dynamic>;
       return deserializer(json);
     } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
       return <T>[];
     }
   }
@@ -97,18 +115,23 @@ class BibleBrainClient {
     required K Function(String key) keyDeserializer,
     required V Function(dynamic value) valueDeserializer,
     Map<String, Object?> query = const <String, Object?>{},
+    required BibleBrainClientOptions? options,
   }) async {
+    final opts = options ?? _options;
     try {
       final url = _baseUrl
           .resolve(endpoint)
           .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: _headers);
+      final response = await _client.get(url, headers: opts.headers);
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       return json.map(
         (key, value) =>
             MapEntry(keyDeserializer(key), valueDeserializer(value)),
       );
     } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
       return null;
     }
   }
@@ -117,14 +140,19 @@ class BibleBrainClient {
   Future<String?> getJson(
     String endpoint, {
     Map<String, Object?> query = const <String, Object?>{},
+    required BibleBrainClientOptions? options,
   }) async {
+    final opts = options ?? _options;
     try {
       final url = _baseUrl
           .resolve(endpoint)
           .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: _headers);
+      final response = await _client.get(url, headers: opts.headers);
       return response.body;
     } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
       return null;
     }
   }
@@ -136,7 +164,16 @@ class BibleBrainClient {
 }
 
 Map<String, String> _toQuery(Map<String, Object?> params) {
-  return (Map.of(params)..removeWhere(
-    (key, value) => value == null,
-  )).map((key, value) => MapEntry(key, value.toString()));
+  return (Map.of(params)..removeWhere((key, value) => value == null)).map(
+    (key, value) => MapEntry(key, value.toString()),
+  );
+}
+
+class BibleBrainClientOptions {
+  final String apiKey;
+  final bool rethrowExceptions;
+
+  BibleBrainClientOptions({this.apiKey = "", this.rethrowExceptions = false});
+
+  Map<String, String> get headers => {"v": "4", "key": apiKey};
 }
