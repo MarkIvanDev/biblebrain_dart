@@ -1,3 +1,9 @@
+## 2.3.0
+
+- Change positional parameters to named.
+- Make the page parameter for the paginated methods default to 1 instead of being required.
+- Update README.md to reflect the changes.
+
 ## 2.2.0
 
 - Requires Dart 3.8 or later.
