@@ -102,8 +102,8 @@ class LanguageClient {
   }
 
   /// Returns details for a single language.
-  Future<LanguageInfoResult?> getLanguage(
-    int languageId, {
+  Future<LanguageInfoResult?> getLanguage({
+    required int languageId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -114,8 +114,8 @@ class LanguageClient {
   }
 
   /// Returns details for a single language in json.
-  Future<String?> getLanguageJson(
-    int languageId, {
+  Future<String?> getLanguageJson({
+    required int languageId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -125,8 +125,8 @@ class LanguageClient {
   }
 
   /// Returns the list of languages that have [searchText] in its name or country.
-  Future<List<LanguageSearch>> searchLanguages(
-    String searchText, {
+  Future<List<LanguageSearch>> searchLanguages({
+    required String searchText,
     BibleBrainClientOptions? options,
   }) async {
     var languages = <LanguageSearch>[];
@@ -158,8 +158,8 @@ class LanguageClient {
   }
 
   /// Returns the paginated list of languages that have [searchText] in its name or country.
-  Future<LanguageSearchResult?> searchLanguagesPaginated(
-    String searchText, {
+  Future<LanguageSearchResult?> searchLanguagesPaginated({
+    required String searchText,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,
@@ -173,8 +173,8 @@ class LanguageClient {
   }
 
   /// Returns the paginated list of languages that have [searchText] in its name or country in json.
-  Future<String?> searchLanguagesPaginatedJson(
-    String searchText, {
+  Future<String?> searchLanguagesPaginatedJson({
+    required String searchText,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,

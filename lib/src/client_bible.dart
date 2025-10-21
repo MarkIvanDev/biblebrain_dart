@@ -116,8 +116,8 @@ class BibleClient {
   }
 
   /// Returns detailed metadata for a single bible.
-  Future<BibleInfoResult?> getBible(
-    String bibleId, {
+  Future<BibleInfoResult?> getBible({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -128,8 +128,8 @@ class BibleClient {
   }
 
   /// Returns detailed metadata for a single bible in json.
-  Future<String?> getBibleJson(
-    String bibleId, {
+  Future<String?> getBibleJson({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -139,8 +139,8 @@ class BibleClient {
   }
 
   /// Returns book information for a bible.
-  Future<BooksResult?> getBooks(
-    String bibleId, {
+  Future<BooksResult?> getBooks({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -151,8 +151,8 @@ class BibleClient {
   }
 
   /// Returns book information for a bible in json.
-  Future<String?> getBooksJson(
-    String bibleId, {
+  Future<String?> getBooksJson({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -162,8 +162,8 @@ class BibleClient {
   }
 
   /// Returns bible copyright information.
-  Future<List<Copyright>> getCopyright(
-    String bibleId, {
+  Future<List<Copyright>> getCopyright({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getList(
@@ -176,8 +176,8 @@ class BibleClient {
   }
 
   /// Returns bible copyright information in json.
-  Future<String?> getCopyrightJson(
-    String bibleId, {
+  Future<String?> getCopyrightJson({
+    required String bibleId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -187,10 +187,10 @@ class BibleClient {
   }
 
   /// Returns content for a single fileset, book and chapter.
-  Future<VersesResult?> getChapter(
-    String filesetId,
-    String bookId,
-    int chapter, {
+  Future<VersesResult?> getChapter({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -201,10 +201,10 @@ class BibleClient {
   }
 
   /// Returns content for a single fileset, book and chapter in json.
-  Future<String?> getChapterJson(
-    String filesetId,
-    String bookId,
-    int chapter, {
+  Future<String?> getChapterJson({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -251,10 +251,10 @@ class BibleClient {
   }
 
   /// Returns the list of bible verses by language.
-  Future<List<VerseByLanguage>> getVersesByLanguage(
-    String languageCode,
-    String bookId,
-    int chapter, {
+  Future<List<VerseByLanguage>> getVersesByLanguage({
+    required String languageCode,
+    required String bookId,
+    required int chapter,
     int? verse,
     BibleBrainClientOptions? options,
   }) async {
@@ -294,10 +294,10 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bible verses by language.
-  Future<VerseByLanguageResult?> getVersesByLanguagePaginated(
-    String languageCode,
-    String bookId,
-    int chapter, {
+  Future<VerseByLanguageResult?> getVersesByLanguagePaginated({
+    required String languageCode,
+    required String bookId,
+    required int chapter,
     int? verse,
     required int page,
     int? limit,
@@ -317,10 +317,10 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bible verses by language in json.
-  Future<String?> getVersesByLanguagePaginatedJson(
-    String languageCode,
-    String bookId,
-    int chapter, {
+  Future<String?> getVersesByLanguagePaginatedJson({
+    required String languageCode,
+    required String bookId,
+    required int chapter,
     int? verse,
     required int page,
     int? limit,
@@ -339,10 +339,10 @@ class BibleClient {
   }
 
   /// Returns the list of bible verses by version.
-  Future<List<VerseByVersion>> getVersesByVersion(
-    String bibleId,
-    String bookId,
-    int chapter, {
+  Future<List<VerseByVersion>> getVersesByVersion({
+    required String bibleId,
+    required String bookId,
+    required int chapter,
     int? verse,
     BibleBrainClientOptions? options,
   }) async {
@@ -377,10 +377,10 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bible verses by version.
-  Future<VerseByVersionResult?> getVersesByVersionPaginated(
-    String bibleId,
-    String bookId,
-    int chapter, {
+  Future<VerseByVersionResult?> getVersesByVersionPaginated({
+    required String bibleId,
+    required String bookId,
+    required int chapter,
     int? verse,
     required int page,
     int? limit,
@@ -395,10 +395,10 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bible verses by version in json.
-  Future<String?> getVersesByVersionPaginatedJson(
-    String bibleId,
-    String bookId,
-    int chapter, {
+  Future<String?> getVersesByVersionPaginatedJson({
+    required String bibleId,
+    required String bookId,
+    required int chapter,
     int? verse,
     required int page,
     int? limit,
@@ -412,8 +412,8 @@ class BibleClient {
   }
 
   /// Returns the list of bibles meeting the given [version].
-  Future<List<BibleSearchByVersion>> searchBiblesByVersion(
-    String version, {
+  Future<List<BibleSearchByVersion>> searchBiblesByVersion({
+    required String version,
     BibleBrainClientOptions? options,
   }) async {
     var bibles = <BibleSearchByVersion>[];
@@ -447,8 +447,8 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bibles meeting the given [version].
-  Future<BibleSearchByVersionResult?> searchBiblesByVersionPaginated(
-    String version, {
+  Future<BibleSearchByVersionResult?> searchBiblesByVersionPaginated({
+    required String version,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,
@@ -462,8 +462,8 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bibles meeting the given [version] in json.
-  Future<String?> searchBiblesByVersionPaginatedJson(
-    String version, {
+  Future<String?> searchBiblesByVersionPaginatedJson({
+    required String version,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,
@@ -476,8 +476,8 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
-  Future<List<BibleSearch>> searchBibles(
-    String searchText, {
+  Future<List<BibleSearch>> searchBibles({
+    required String searchText,
     BibleBrainClientOptions? options,
   }) async {
     var bibles = <BibleSearch>[];
@@ -511,8 +511,8 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name.
-  Future<BibleSearchResult?> searchBiblesPaginated(
-    String searchText, {
+  Future<BibleSearchResult?> searchBiblesPaginated({
+    required String searchText,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,
@@ -526,8 +526,8 @@ class BibleClient {
   }
 
   /// Returns a paginated list of bibles that have [searchText] in its name in json.
-  Future<String?> searchBiblesPaginatedJson(
-    String searchText, {
+  Future<String?> searchBiblesPaginatedJson({
+    required String searchText,
     required int page,
     int? limit,
     BibleBrainClientOptions? options,
@@ -540,9 +540,9 @@ class BibleClient {
   }
 
   /// Returns the list of [VerseInfo] of a chapter.
-  Future<VerseInfoResult?> getVerseInfo(
-    String filesetId,
-    String bookId, {
+  Future<VerseInfoResult?> getVerseInfo({
+    required String filesetId,
+    required String bookId,
     int? chapter,
     BibleBrainClientOptions? options,
   }) async {
@@ -554,9 +554,9 @@ class BibleClient {
   }
 
   /// Returns the list of [VerseInfo] of a chapter in json.
-  Future<String?> getVerseInfoJson(
-    String filesetId,
-    String bookId, {
+  Future<String?> getVerseInfoJson({
+    required String filesetId,
+    required String bookId,
     int? chapter,
     BibleBrainClientOptions? options,
   }) async {

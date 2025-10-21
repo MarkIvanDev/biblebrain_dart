@@ -71,9 +71,9 @@ class DownloadClient {
   }
 
   /// Returns a list of download content.
-  Future<DownloadContentResult?> getDownloadContent(
-    String filesetId,
-    String bookId, {
+  Future<DownloadContentResult?> getDownloadContent({
+    required String filesetId,
+    required String bookId,
     int? chapter,
     BibleBrainClientOptions? options,
   }) async {
@@ -85,9 +85,9 @@ class DownloadClient {
   }
 
   /// Returns a list of download content in json.
-  Future<String?> getDownloadContentJson(
-    String filesetId,
-    String bookId, {
+  Future<String?> getDownloadContentJson({
+    required String filesetId,
+    required String bookId,
     int? chapter,
     BibleBrainClientOptions? options,
   }) async {

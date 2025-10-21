@@ -26,8 +26,8 @@ class AlphabetClient {
   }
 
   /// Returns a single alphabet along with whatever bibles and languages using it.
-  Future<AlphabetInfoResult?> getAlphabet(
-    String alphabetId, {
+  Future<AlphabetInfoResult?> getAlphabet({
+    required String alphabetId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -38,8 +38,8 @@ class AlphabetClient {
   }
 
   /// Returns a single alphabet along with whatever bibles and languages using it in json.
-  Future<String?> getAlphabetJson(
-    String alphabetId, {
+  Future<String?> getAlphabetJson({
+    required String alphabetId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(

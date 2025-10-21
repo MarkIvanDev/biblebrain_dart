@@ -25,35 +25,46 @@ final client = BibleBrainClient(apiKey: '<API-KEY>');
 
 // Alphabet endpoints
 final alphabets = await client.alphabet.getAlphabets();
-final alphabet = await client.alphabet.getAlphabet('Latn');
+final alphabet = await client.alphabet.getAlphabet(alphabetId: 'Latn');
 
 // Bible endpoints
 final bibles = await client.bible.getBibles();
-final bible = await client.bible.getBible('ENGKJV');
-final books = await client.bible.getBooks('ENGKJV');
-final copyright = await client.bible.getCopyright('ENGKJV');
-final chapter = await client.bible.getChapter('ENGKJV', 'GEN', 1);
+final bible = await client.bible.getBible(bibleId: 'ENGKJV');
+final books = await client.bible.getBooks(bibleId: 'ENGKJV');
+final copyright = await client.bible.getCopyright(bibleId: 'ENGKJV');
+final chapter = await client.bible.getChapter(
+  filesetId: 'ENGKJV',
+  bookId: 'GEN',
+  chapter: 1,
+);
 final defaultBibles = await client.bible.getDefaultBibles();
 final mediaTypes = await client.bible.getMediaTypes();
 
 // Country endpoints
 final countries = await client.country.getCountries();
-final country = await client.country.getCountry('PH');
+final country = await client.country.getCountry(countryId: 'PH');
 
 // Language endpoints
 final languages = await client.language.getLanguages();
-final language = await client.language.getLanguage(6513);
+final language = await client.language.getLanguage(languageId: 6513);
 
 // Number endpoints
 final numbers = await client.number.getNumbers();
-final number = await client.number.getNumber('thai');
+final number = await client.number.getNumber(numeralSystem: 'thai');
 
 // Search endpoints
-final searches = await client.search.search('love', 'ENGKJV');
+final searches = await client.search.search(
+  query: 'love',
+  filesetId: 'ENGKJV',
+);
 
 // Timestamp endpoints
 final filesets = await client.timestamp.getFilesetsWithTimestamps();
-final timestamps = await client.timestamp.getTimestamps('ENGKJVO1DA', 'GEN', 1);
+final timestamps = await client.timestamp.getTimestamps(
+  filesetId: 'ENGKJVO1DA',
+  bookId: 'GEN',
+  chapter: 1,
+);
 ```
 
 ## Support
@@ -63,5 +74,4 @@ If you like my work and want to support me, buying me a coffee would be awesome!
 
 ---------
 **Mark Ivan Basto** &bullet; **GitHub**
-**[@MarkIvanDev](https://github.com/MarkIvanDev)** &bullet; **Twitter**
-**[@Rivolvan_Speaks](https://twitter.com/Rivolvan_Speaks)**
+**[@MarkIvanDev](https://github.com/MarkIvanDev)**
