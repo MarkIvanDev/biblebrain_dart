@@ -45,7 +45,7 @@ class DownloadClient {
 
   /// Returns a paginated list of downloadable filesets.
   Future<DownloadableFilesetResult?> getDownloadableFilesetsPaginated({
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -59,7 +59,7 @@ class DownloadClient {
 
   /// Returns a paginated list of downloadable filesets in json.
   Future<String?> getDownloadableFilesetsPaginatedJson({
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {

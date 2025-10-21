@@ -65,7 +65,7 @@ class SearchClient {
     required String query,
     required String filesetId,
     List<String>? books,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -89,7 +89,7 @@ class SearchClient {
     required String query,
     required String filesetId,
     List<String>? books,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {

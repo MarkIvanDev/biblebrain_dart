@@ -51,7 +51,7 @@ class CountryClient {
   Future<CountriesResult?> getCountriesPaginated({
     String? l10n,
     bool? includeLanguages,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -72,7 +72,7 @@ class CountryClient {
   Future<String?> getCountriesPaginatedJson({
     String? l10n,
     bool? includeLanguages,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -149,7 +149,7 @@ class CountryClient {
   /// Returns the paginated list of countries that have [searchText] in its name.
   Future<CountrySearchResult?> searchCountriesPaginated({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -164,7 +164,7 @@ class CountryClient {
   /// Returns the paginated list of countries that have [searchText] in its name in json.
   Future<String?> searchCountriesPaginatedJson({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {

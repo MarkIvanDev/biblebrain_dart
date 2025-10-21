@@ -66,7 +66,7 @@ class BibleClient {
     MediaType? mediaExclude,
     String? size,
     String? sizeExclude,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -95,7 +95,7 @@ class BibleClient {
     MediaType? mediaExclude,
     String? size,
     String? sizeExclude,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -299,7 +299,7 @@ class BibleClient {
     required String bookId,
     required int chapter,
     int? verse,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -322,7 +322,7 @@ class BibleClient {
     required String bookId,
     required int chapter,
     int? verse,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -382,7 +382,7 @@ class BibleClient {
     required String bookId,
     required int chapter,
     int? verse,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -400,7 +400,7 @@ class BibleClient {
     required String bookId,
     required int chapter,
     int? verse,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -449,7 +449,7 @@ class BibleClient {
   /// Returns a paginated list of bibles meeting the given [version].
   Future<BibleSearchByVersionResult?> searchBiblesByVersionPaginated({
     required String version,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -464,7 +464,7 @@ class BibleClient {
   /// Returns a paginated list of bibles meeting the given [version] in json.
   Future<String?> searchBiblesByVersionPaginatedJson({
     required String version,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -475,7 +475,7 @@ class BibleClient {
     );
   }
 
-  /// Returns a paginated list of bibles that have [searchText] in its name.
+  /// Returns the list of bibles that have [searchText] in its name.
   Future<List<BibleSearch>> searchBibles({
     required String searchText,
     BibleBrainClientOptions? options,
@@ -513,7 +513,7 @@ class BibleClient {
   /// Returns a paginated list of bibles that have [searchText] in its name.
   Future<BibleSearchResult?> searchBiblesPaginated({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -528,7 +528,7 @@ class BibleClient {
   /// Returns a paginated list of bibles that have [searchText] in its name in json.
   Future<String?> searchBiblesPaginatedJson({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {

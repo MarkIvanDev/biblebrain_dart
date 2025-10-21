@@ -58,7 +58,7 @@ class LanguageClient {
     String? languageCode,
     String? languageName,
     bool? includeTranslations,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -83,7 +83,7 @@ class LanguageClient {
     String? languageCode,
     String? languageName,
     bool? includeTranslations,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -160,7 +160,7 @@ class LanguageClient {
   /// Returns the paginated list of languages that have [searchText] in its name or country.
   Future<LanguageSearchResult?> searchLanguagesPaginated({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -175,7 +175,7 @@ class LanguageClient {
   /// Returns the paginated list of languages that have [searchText] in its name or country in json.
   Future<String?> searchLanguagesPaginatedJson({
     required String searchText,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
