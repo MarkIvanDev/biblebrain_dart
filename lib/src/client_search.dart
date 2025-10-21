@@ -10,9 +10,9 @@ class SearchClient {
   SearchClient(this._client);
 
   /// Search a bible for a word.
-  Future<List<SearchResult>> search(
-    String query,
-    String filesetId, {
+  Future<List<SearchResult>> search({
+    required String query,
+    required String filesetId,
     List<String>? books,
     BibleBrainClientOptions? options,
   }) async {
@@ -61,11 +61,11 @@ class SearchClient {
   }
 
   /// Returns a paginated list of search results.
-  Future<SearchResult?> searchPaginated(
-    String query,
-    String filesetId, {
+  Future<SearchResult?> searchPaginated({
+    required String query,
+    required String filesetId,
     List<String>? books,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -85,11 +85,11 @@ class SearchClient {
   }
 
   /// Returns a paginated list of search results in json.
-  Future<String?> searchPaginatedJson(
-    String query,
-    String filesetId, {
+  Future<String?> searchPaginatedJson({
+    required String query,
+    required String filesetId,
     List<String>? books,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
