@@ -51,7 +51,7 @@ class CountryClient {
   Future<CountriesResult?> getCountriesPaginated({
     String? l10n,
     bool? includeLanguages,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -72,7 +72,7 @@ class CountryClient {
   Future<String?> getCountriesPaginatedJson({
     String? l10n,
     bool? includeLanguages,
-    required int page,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -89,8 +89,8 @@ class CountryClient {
   }
 
   /// Returns details for a single country.
-  Future<CountryInfoResult?> getCountry(
-    String countryId, {
+  Future<CountryInfoResult?> getCountry({
+    required String countryId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -101,8 +101,8 @@ class CountryClient {
   }
 
   /// Returns details for a single country in json.
-  Future<String?> getCountryJson(
-    String countryId, {
+  Future<String?> getCountryJson({
+    required String countryId,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
@@ -112,8 +112,8 @@ class CountryClient {
   }
 
   /// Returns the list of countries that have [searchText] in its name.
-  Future<List<CountrySearch>> searchCountries(
-    String searchText, {
+  Future<List<CountrySearch>> searchCountries({
+    required String searchText,
     BibleBrainClientOptions? options,
   }) async {
     var countries = <CountrySearch>[];
@@ -147,9 +147,9 @@ class CountryClient {
   }
 
   /// Returns the paginated list of countries that have [searchText] in its name.
-  Future<CountrySearchResult?> searchCountriesPaginated(
-    String searchText, {
-    required int page,
+  Future<CountrySearchResult?> searchCountriesPaginated({
+    required String searchText,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {
@@ -162,9 +162,9 @@ class CountryClient {
   }
 
   /// Returns the paginated list of countries that have [searchText] in its name in json.
-  Future<String?> searchCountriesPaginatedJson(
-    String searchText, {
-    required int page,
+  Future<String?> searchCountriesPaginatedJson({
+    required String searchText,
+    int page = 1,
     int? limit,
     BibleBrainClientOptions? options,
   }) async {

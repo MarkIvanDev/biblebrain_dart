@@ -24,8 +24,8 @@ class NumberClient {
   }
 
   /// Return a single custom number set.
-  Future<NumberInfoResult?> getNumber(
-    String numeralSystem, {
+  Future<NumberInfoResult?> getNumber({
+    required String numeralSystem,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -36,8 +36,8 @@ class NumberClient {
   }
 
   /// Return a single custom number set in json.
-  Future<String?> getNumberJson(
-    String numeralSystem, {
+  Future<String?> getNumberJson({
+    required String numeralSystem,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(

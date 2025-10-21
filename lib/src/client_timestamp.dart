@@ -30,10 +30,10 @@ class TimestampClient {
   }
 
   /// Returns audio timestamps for a chapter.
-  Future<TimestampsResult?> getTimestamps(
-    String filesetId,
-    String bookId,
-    int chapter, {
+  Future<TimestampsResult?> getTimestamps({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.get(
@@ -44,10 +44,10 @@ class TimestampClient {
   }
 
   /// Returns audio timestamps for a chapter in json.
-  Future<String?> getTimestampsJson(
-    String filesetId,
-    String bookId,
-    int chapter, {
+  Future<String?> getTimestampsJson({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
     BibleBrainClientOptions? options,
   }) async {
     return await _client.getJson(
