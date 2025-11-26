@@ -1,3 +1,8 @@
+## 2.4.0
+
+- Add *FromJson and *RequestUri methods.
+- Update dependencies.
+
 ## 2.3.0
 
 - Change positional parameters to named.
