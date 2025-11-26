@@ -29,6 +29,25 @@ class TimestampClient {
     return await _client.getJson(ApiEndpoints.timestamps, options: options);
   }
 
+  /// Returns bible filesets which have audio timestamps from json.
+  List<FilesetId> getFilesetsWithTimestampsFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserializeList(
+      json: json,
+      deserializer: (body) => body
+          .map((e) => FilesetId.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      options: options,
+    );
+  }
+
+  /// Get the request URI for the filesets with timestamps endpoint.
+  static String getFilesetsWithTimestampsRequestUri() {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.timestamps);
+  }
+
   /// Returns audio timestamps for a chapter.
   Future<TimestampsResult?> getTimestamps({
     required String filesetId,
@@ -53,6 +72,29 @@ class TimestampClient {
     return await _client.getJson(
       ApiEndpoints.getTimestamps(filesetId, bookId, chapter),
       options: options,
+    );
+  }
+
+  /// Returns audio timestamps for a chapter from json.
+  TimestampsResult? getTimestampsFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: TimestampsResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Get the request URI for the timestamps endpoint.
+  static String getTimestampsRequestUri({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getTimestamps(filesetId, bookId, chapter),
     );
   }
 }

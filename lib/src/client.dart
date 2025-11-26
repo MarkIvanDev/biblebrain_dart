@@ -24,7 +24,6 @@ export 'client_timestamp.dart';
 class BibleBrainClient {
   final BibleBrainClientOptions _options;
   final http.Client _client;
-  final Uri _baseUrl = Uri.parse(ApiEndpoints.base);
 
   /// Creates a new instance of [BibleBrainClient].
   BibleBrainClient({required String apiKey, http.Client? client})
@@ -70,20 +69,15 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
     required BibleBrainClientOptions? options,
   }) async {
-    final opts = options ?? _options;
-    try {
-      final url = _baseUrl
-          .resolve(endpoint)
-          .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: opts.headers);
-      final json = jsonDecode(response.body) as Map<String, dynamic>;
-      return deserializer(json);
-    } catch (e) {
-      if (opts.rethrowExceptions) {
-        rethrow;
-      }
+    final json = await getJson(endpoint, query: query, options: options);
+    if (json == null) {
       return null;
     }
+    return deserialize(
+      json: json,
+      deserializer: deserializer,
+      options: options,
+    );
   }
 
   /// Executes an http GET request and decodes the json response to a list.
@@ -93,20 +87,15 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
     required BibleBrainClientOptions? options,
   }) async {
-    final opts = options ?? _options;
-    try {
-      final url = _baseUrl
-          .resolve(endpoint)
-          .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: opts.headers);
-      final json = jsonDecode(response.body) as List<dynamic>;
-      return deserializer(json);
-    } catch (e) {
-      if (opts.rethrowExceptions) {
-        rethrow;
-      }
+    final json = await getJson(endpoint, query: query, options: options);
+    if (json == null) {
       return <T>[];
     }
+    return deserializeList(
+      json: json,
+      deserializer: deserializer,
+      options: options,
+    );
   }
 
   /// Executes an http GET request and decodes the json response to a map.
@@ -117,23 +106,16 @@ class BibleBrainClient {
     Map<String, Object?> query = const <String, Object?>{},
     required BibleBrainClientOptions? options,
   }) async {
-    final opts = options ?? _options;
-    try {
-      final url = _baseUrl
-          .resolve(endpoint)
-          .replace(queryParameters: _toQuery(query));
-      final response = await _client.get(url, headers: opts.headers);
-      final json = jsonDecode(response.body) as Map<String, dynamic>;
-      return json.map(
-        (key, value) =>
-            MapEntry(keyDeserializer(key), valueDeserializer(value)),
-      );
-    } catch (e) {
-      if (opts.rethrowExceptions) {
-        rethrow;
-      }
+    final json = await getJson(endpoint, query: query, options: options);
+    if (json == null) {
       return null;
     }
+    return deserializeMap(
+      json: json,
+      keyDeserializer: keyDeserializer,
+      valueDeserializer: valueDeserializer,
+      options: options,
+    );
   }
 
   /// Executes an http GET request and returns the raw json response.
@@ -144,11 +126,69 @@ class BibleBrainClient {
   }) async {
     final opts = options ?? _options;
     try {
-      final url = _baseUrl
+      final url = ApiEndpoints.baseUrl
           .resolve(endpoint)
-          .replace(queryParameters: _toQuery(query));
+          .replace(queryParameters: toQuery(query));
       final response = await _client.get(url, headers: opts.headers);
       return response.body;
+    } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
+      return null;
+    }
+  }
+
+  /// Deserializes a json string to an object.
+  T? deserialize<T>({
+    required String json,
+    required T Function(Map<String, dynamic> body) deserializer,
+    required BibleBrainClientOptions? options,
+  }) {
+    final opts = options ?? _options;
+    try {
+      final decoded = jsonDecode(json) as Map<String, dynamic>;
+      return deserializer(decoded);
+    } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
+      return null;
+    }
+  }
+
+  /// Deserializes a json string to a list.
+  List<T> deserializeList<T>({
+    required String json,
+    required List<T> Function(List<dynamic> body) deserializer,
+    required BibleBrainClientOptions? options,
+  }) {
+    final opts = options ?? _options;
+    try {
+      final decoded = jsonDecode(json) as List<dynamic>;
+      return deserializer(decoded);
+    } catch (e) {
+      if (opts.rethrowExceptions) {
+        rethrow;
+      }
+      return <T>[];
+    }
+  }
+
+  /// Deserializes a json string to a map.
+  Map<K, V>? deserializeMap<K, V>({
+    required String json,
+    required K Function(String key) keyDeserializer,
+    required V Function(dynamic value) valueDeserializer,
+    required BibleBrainClientOptions? options,
+  }) {
+    final opts = options ?? _options;
+    try {
+      final decoded = jsonDecode(json) as Map<String, dynamic>;
+      return decoded.map(
+        (key, value) =>
+            MapEntry(keyDeserializer(key), valueDeserializer(value)),
+      );
     } catch (e) {
       if (opts.rethrowExceptions) {
         rethrow;
@@ -161,12 +201,6 @@ class BibleBrainClient {
   void close() {
     _client.close();
   }
-}
-
-Map<String, String> _toQuery(Map<String, Object?> params) {
-  return (Map.of(params)..removeWhere((key, value) => value == null)).map(
-    (key, value) => MapEntry(key, value.toString()),
-  );
 }
 
 class BibleBrainClientOptions {

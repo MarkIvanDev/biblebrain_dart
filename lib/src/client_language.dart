@@ -101,6 +101,40 @@ class LanguageClient {
     );
   }
 
+  /// Returns the paginated list of languages from json.
+  LanguagesResult? getLanguagesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: LanguagesResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting the paginated list of languages.
+  static String getLanguagesPaginatedRequestUri({
+    String? country,
+    String? languageCode,
+    String? languageName,
+    bool? includeTranslations,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.languages,
+      query: {
+        'country': country,
+        'language_code': languageCode,
+        'language_name': languageName,
+        'include_translations': includeTranslations,
+        'limit': limit,
+        'page': page,
+      },
+    );
+  }
+
   /// Returns details for a single language.
   Future<LanguageInfoResult?> getLanguage({
     required int languageId,
@@ -122,6 +156,22 @@ class LanguageClient {
       ApiEndpoints.getLanguage(languageId),
       options: options,
     );
+  }
+
+  /// Returns details for a single language from json.
+  LanguageInfoResult? getLanguageFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: LanguageInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  static String getLanguageRequestUri({required int languageId}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getLanguage(languageId));
   }
 
   /// Returns the list of languages that have [searchText] in its name or country.
@@ -183,6 +233,28 @@ class LanguageClient {
       ApiEndpoints.getLanguageSearch(searchText),
       query: <String, Object?>{'limit': limit, 'page': page},
       options: options,
+    );
+  }
+
+  LanguageSearchResult? searchLanguagesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: LanguageSearchResult.fromJson,
+      options: options,
+    );
+  }
+
+  static String searchLanguagesPaginatedRequestUri({
+    required String searchText,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getLanguageSearch(searchText),
+      query: <String, Object?>{'limit': limit, 'page': page},
     );
   }
 }

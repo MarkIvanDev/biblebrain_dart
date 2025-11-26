@@ -106,4 +106,36 @@ class SearchClient {
       options: options,
     );
   }
+
+  /// Return a paginated list of search results from json.
+  SearchResult? searchPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: SearchResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Get the request URI for the search endpoint.
+  static String searchPaginatedRequestUri({
+    required String query,
+    required String filesetId,
+    List<String>? books,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.search,
+      query: <String, Object?>{
+        'query': query,
+        'fileset_id': filesetId,
+        'books': books != null && books.isNotEmpty ? books.join(',') : null,
+        'limit': limit,
+        'page': page,
+      },
+    );
+  }
 }

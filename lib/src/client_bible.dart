@@ -115,6 +115,44 @@ class BibleClient {
     );
   }
 
+  /// Returns a paginated list of bibles based on filter criteria from json.
+  BiblesResult? getBiblesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: BiblesResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for a paginated list of bibles based on filter criteria.
+  static String getBiblesPaginatedRequestUri({
+    String? languageCode,
+    String? assetId,
+    MediaType? media,
+    MediaType? mediaExclude,
+    String? size,
+    String? sizeExclude,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.bibles,
+      query: {
+        'language_code': languageCode,
+        'asset_id': assetId,
+        'media': media?.name,
+        'media_exclude': mediaExclude?.name,
+        'size': size,
+        'size_exclude': sizeExclude,
+        'limit': limit,
+        'page': page,
+      },
+    );
+  }
+
   /// Returns detailed metadata for a single bible.
   Future<BibleInfoResult?> getBible({
     required String bibleId,
@@ -136,6 +174,23 @@ class BibleClient {
       ApiEndpoints.getBible(bibleId),
       options: options,
     );
+  }
+
+  /// Returns detailed metadata for a single bible from json.
+  BibleInfoResult? getBibleFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: BibleInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for detailed metadata for a single bible.
+  static String getBibleRequestUri({required String bibleId}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getBible(bibleId));
   }
 
   /// Returns book information for a bible.
@@ -161,6 +216,23 @@ class BibleClient {
     );
   }
 
+  /// Returns book information for a bible from json.
+  BooksResult? getBooksFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: BooksResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for book information for a bible.
+  static String getBooksRequestUri({required String bibleId}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getBooks(bibleId));
+  }
+
   /// Returns bible copyright information.
   Future<List<Copyright>> getCopyright({
     required String bibleId,
@@ -184,6 +256,25 @@ class BibleClient {
       ApiEndpoints.getCopyright(bibleId),
       options: options,
     );
+  }
+
+  /// Returns bible copyright information from json.
+  List<Copyright> getCopyrightFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserializeList(
+      json: json,
+      deserializer: (body) => body
+          .map((e) => Copyright.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for bible copyright information.
+  static String getCopyrightRequestUri({required String bibleId}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getCopyright(bibleId));
   }
 
   /// Returns content for a single fileset, book and chapter.
@@ -213,6 +304,29 @@ class BibleClient {
     );
   }
 
+  /// Returns content for a single fileset, book and chapter from json.
+  VersesResult? getChapterFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: VersesResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for content for a single fileset, book and chapter.
+  static String getChapterRequestUri({
+    required String filesetId,
+    required String bookId,
+    required int chapter,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getChapter(filesetId, bookId, chapter),
+    );
+  }
+
   /// Returns the default bibles for all languages.
   Future<Map<String, DefaultBible>?> getDefaultBibles({
     BibleBrainClientOptions? options,
@@ -233,6 +347,25 @@ class BibleClient {
     return await _client.getJson(ApiEndpoints.defaultBibles, options: options);
   }
 
+  /// Returns the default bibles for all languages from json.
+  Map<String, DefaultBible>? getDefaultBiblesFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserializeMap(
+      json: json,
+      keyDeserializer: (key) => key,
+      valueDeserializer: (value) =>
+          DefaultBible.fromJson(value as Map<String, dynamic>),
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the default bibles for all languages.
+  static String getDefaultBiblesRequestUri() {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.defaultBibles);
+  }
+
   /// Returns the list of all the media types that exist within the filesets.
   Future<Map<MediaType?, String>?> getMediaTypes({
     BibleBrainClientOptions? options,
@@ -248,6 +381,24 @@ class BibleClient {
   /// Returns the list of all the media types that exist within the filesets in json.
   Future<String?> getMediaTypesJson({BibleBrainClientOptions? options}) async {
     return await _client.getJson(ApiEndpoints.mediaTypes, options: options);
+  }
+
+  /// Returns the list of all the media types that exist within the filesets from json.
+  Map<MediaType?, String>? getMediaTypesFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserializeMap(
+      json: json,
+      keyDeserializer: (key) => MediaTypeConverter().fromJson(key),
+      valueDeserializer: (value) => value as String,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the list of all the media types that exist within the filesets.
+  static String getMediaTypesRequestUri() {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.mediaTypes);
   }
 
   /// Returns the list of bible verses by language.
@@ -338,6 +489,38 @@ class BibleClient {
     );
   }
 
+  /// Returns a paginated list of bible verses by language from json.
+  VerseByLanguageResult? getVersesByLanguagePaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: VerseByLanguageResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the paginated list of bible verses by language.
+  static String getVersesByLanguagePaginatedRequestUri({
+    required String languageCode,
+    required String bookId,
+    required int chapter,
+    int? verse,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getVersesByLanguage(
+        languageCode,
+        bookId,
+        chapter,
+        verse: verse,
+      ),
+      query: {'limit': limit, 'page': page},
+    );
+  }
+
   /// Returns the list of bible verses by version.
   Future<List<VerseByVersion>> getVersesByVersion({
     required String bibleId,
@@ -411,6 +594,38 @@ class BibleClient {
     );
   }
 
+  /// Returns a paginated list of bible verses by version from json.
+  VerseByVersionResult? getVersesByVersionPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: VerseByVersionResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the paginated list of bible verses by version.
+  static String getVersesByVersionPaginatedRequestUri({
+    required String bibleId,
+    required String bookId,
+    required int chapter,
+    int? verse,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getVersesByVersion(
+        bibleId,
+        bookId,
+        chapter,
+        verse: verse,
+      ),
+      query: {'limit': limit, 'page': page},
+    );
+  }
+
   /// Returns the list of bibles meeting the given [version].
   Future<List<BibleSearchByVersion>> searchBiblesByVersion({
     required String version,
@@ -472,6 +687,30 @@ class BibleClient {
       ApiEndpoints.bibleSearch,
       query: {'version': version, 'limit': limit, 'page': page},
       options: options,
+    );
+  }
+
+  /// Returns the paginated list of bibles meeting the given [version] from json.
+  BibleSearchByVersionResult? searchBiblesByVersionPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: BibleSearchByVersionResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the paginated list of bibles meeting the given [version].
+  static String searchBiblesByVersionPaginatedRequestUri({
+    required String version,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.bibleSearch,
+      query: {'version': version, 'limit': limit, 'page': page},
     );
   }
 
@@ -539,6 +778,30 @@ class BibleClient {
     );
   }
 
+  /// Returns a paginated list of bibles that have [searchText] in its name from json.
+  BibleSearchResult? searchBiblesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: BibleSearchResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the paginated list of bibles that have [searchText] in its name.
+  static String searchBiblesPaginatedRequestUri({
+    required String searchText,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getBibleSearch(searchText),
+      query: {'limit': limit, 'page': page},
+    );
+  }
+
   /// Returns the list of [VerseInfo] of a chapter.
   Future<VerseInfoResult?> getVerseInfo({
     required String filesetId,
@@ -563,6 +826,29 @@ class BibleClient {
     return await _client.getJson(
       ApiEndpoints.getVerseInfo(filesetId, bookId, chapter: chapter),
       options: options,
+    );
+  }
+
+  /// Returns the list of [VerseInfo] of a chapter from json.
+  VerseInfoResult? getVerseInfoFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: VerseInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for the list of [VerseInfo] of a chapter.
+  static String getVerseInfoRequestUri({
+    required String filesetId,
+    required String bookId,
+    int? chapter,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getVerseInfo(filesetId, bookId, chapter: chapter),
     );
   }
 }

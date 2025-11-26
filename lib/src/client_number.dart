@@ -23,6 +23,23 @@ class NumberClient {
     return await _client.getJson(ApiEndpoints.numbers, options: options);
   }
 
+  /// Return all alphabets that have custom number sets from json.
+  NumbersResult? getNumbersFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: NumbersResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Get the request URI for the numbers endpoint.
+  static String getNumbersRequestUri() {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.numbers);
+  }
+
   /// Return a single custom number set.
   Future<NumberInfoResult?> getNumber({
     required String numeralSystem,
@@ -44,5 +61,22 @@ class NumberClient {
       ApiEndpoints.getNumber(numeralSystem),
       options: options,
     );
+  }
+
+  /// Return a single custom number set from json.
+  NumberInfoResult? getNumberFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: NumberInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Get the request URI for the number endpoint.
+  static String getNumberRequestUri({required String numeralSystem}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getNumber(numeralSystem));
   }
 }

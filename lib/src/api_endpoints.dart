@@ -1,5 +1,18 @@
 class ApiEndpoints {
   static const String base = 'https://4.dbt.io/api/';
+  static final Uri baseUrl = Uri(
+    scheme: 'https',
+    host: '4.dbt.io',
+    path: 'api/',
+  );
+
+  static String requestUri({
+    required String path,
+    Map<String, Object?> query = const <String, Object?>{},
+  }) {
+    final uri = baseUrl.resolve(path).replace(queryParameters: toQuery(query));
+    return '${uri.path}${uri.hasQuery ? '?${uri.query}' : ''}';
+  }
 
   static const String languages = 'languages';
   static String getLanguage(int languageId) => 'languages/$languageId';
@@ -25,12 +38,17 @@ class ApiEndpoints {
       'bibles/filesets/$filesetId/$bookId/$chapter';
   static String getCopyright(String bibleId) => 'bibles/$bibleId/copyright';
   static String getVersesByLanguage(
-          String languageCode, String bookId, int chapter,
-          {int? verse}) =>
-      'bibles/verses/$languageCode/$bookId/$chapter/${verse ?? ''}';
-  static String getVersesByVersion(String bibleId, String bookId, int chapter,
-          {int? verse}) =>
-      'bible/$bibleId/verses/$bookId/$chapter/${verse ?? ''}';
+    String languageCode,
+    String bookId,
+    int chapter, {
+    int? verse,
+  }) => 'bibles/verses/$languageCode/$bookId/$chapter/${verse ?? ''}';
+  static String getVersesByVersion(
+    String bibleId,
+    String bookId,
+    int chapter, {
+    int? verse,
+  }) => 'bible/$bibleId/verses/$bookId/$chapter/${verse ?? ''}';
   static const String defaultBibles = 'bibles/defaults/types';
   static const String mediaTypes = 'bibles/filesets/media/types';
   static const String bibleSearch = 'bibles/search';
@@ -48,4 +66,10 @@ class ApiEndpoints {
       'timestamps/$filesetId/$bookId/$chapter';
 
   static const String search = 'search/';
+}
+
+Map<String, String> toQuery(Map<String, Object?> params) {
+  return (Map.of(params)..removeWhere((key, value) => value == null)).map(
+    (key, value) => MapEntry(key, value.toString()),
+  );
 }

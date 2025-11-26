@@ -70,6 +70,29 @@ class DownloadClient {
     );
   }
 
+  /// Returns a paginated list of downloadable filesets from json.
+  DownloadableFilesetResult? getDownloadableFilesetsPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize<DownloadableFilesetResult>(
+      json: json,
+      deserializer: DownloadableFilesetResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting the paginated list of downloadable filesets.
+  static String getDownloadableFilesetsPaginatedRequestUri({
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.downloadList,
+      query: {'limit': limit, 'page': page},
+    );
+  }
+
   /// Returns a list of download content.
   Future<DownloadContentResult?> getDownloadContent({
     required String filesetId,
@@ -94,6 +117,29 @@ class DownloadClient {
     return await _client.getJson(
       ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
       options: options,
+    );
+  }
+
+  /// Returns a list of download content from json.
+  DownloadContentResult? getDownloadContentFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: DownloadContentResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting the download content.
+  static String getDownloadContentRequestUri({
+    required String filesetId,
+    required String bookId,
+    int? chapter,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getDownload(filesetId, bookId, chapter: chapter),
     );
   }
 }

@@ -25,6 +25,23 @@ class AlphabetClient {
     return await _client.getJson(ApiEndpoints.alphabets, options: options);
   }
 
+  /// Returns a list of the world's known scripts from json.
+  AlphabetsResult? getAlphabetsFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: AlphabetsResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting the list of alphabets.
+  static String getAlphabetsRequestUri() {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.alphabets);
+  }
+
   /// Returns a single alphabet along with whatever bibles and languages using it.
   Future<AlphabetInfoResult?> getAlphabet({
     required String alphabetId,
@@ -46,5 +63,22 @@ class AlphabetClient {
       ApiEndpoints.getAlphabet(alphabetId),
       options: options,
     );
+  }
+
+  /// Returns a single alphabet along with whatever bibles and languages using it from json.
+  AlphabetInfoResult? getAlphabetFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: AlphabetInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting a single alphabet.
+  static String getAlphabetRequestUri(String alphabetId) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getAlphabet(alphabetId));
   }
 }

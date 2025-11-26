@@ -88,6 +88,36 @@ class CountryClient {
     );
   }
 
+  /// Returns the paginated list of countries from json.
+  CountriesResult? getCountriesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: CountriesResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting the list of countries.
+  static String getCountriesRequestUri({
+    String? l10n,
+    bool? includeLanguages,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.countries,
+      query: {
+        'l10n': l10n,
+        'include_languages': includeLanguages,
+        'limit': limit,
+        'page': page,
+      },
+    );
+  }
+
   /// Returns details for a single country.
   Future<CountryInfoResult?> getCountry({
     required String countryId,
@@ -109,6 +139,23 @@ class CountryClient {
       ApiEndpoints.getCountry(countryId),
       options: options,
     );
+  }
+
+  /// Returns details for a single country from json.
+  CountryInfoResult? getCountryFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: CountryInfoResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for getting details of a single country.
+  static String getCountryRequestUri({required String countryId}) {
+    return ApiEndpoints.requestUri(path: ApiEndpoints.getCountry(countryId));
   }
 
   /// Returns the list of countries that have [searchText] in its name.
@@ -172,6 +219,30 @@ class CountryClient {
       ApiEndpoints.getCountrySearch(searchText),
       query: {'limit': limit, 'page': page},
       options: options,
+    );
+  }
+
+  /// Returns the paginated list of countries that have [searchText] in its name from json.
+  CountrySearchResult? searchCountriesPaginatedFromJson({
+    required String json,
+    BibleBrainClientOptions? options,
+  }) {
+    return _client.deserialize(
+      json: json,
+      deserializer: CountrySearchResult.fromJson,
+      options: options,
+    );
+  }
+
+  /// Returns the request URI for searching countries by name.
+  static String searchCountriesPaginatedRequestUri({
+    required String searchText,
+    int page = 1,
+    int? limit,
+  }) {
+    return ApiEndpoints.requestUri(
+      path: ApiEndpoints.getCountrySearch(searchText),
+      query: {'limit': limit, 'page': page},
     );
   }
 }
