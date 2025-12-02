@@ -69,7 +69,7 @@ class ApiEndpoints {
 }
 
 Map<String, String> toQuery(Map<String, Object?> params) {
-  return (Map.of(params)..removeWhere((key, value) => value == null)).map(
-    (key, value) => MapEntry(key, value.toString()),
-  );
+  return (Map.of(params)
+        ..removeWhere((key, value) => value?.toString().isEmpty ?? true))
+      .map((key, value) => MapEntry(key, value.toString()));
 }
