@@ -1,3 +1,8 @@
+## 2.4.1
+
+- Remove empty strings from query.
+- Update dependencies.
+
 ## 2.4.0
 
 - Add *FromJson and *RequestUri methods.
